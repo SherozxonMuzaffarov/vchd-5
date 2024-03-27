@@ -48,7 +48,7 @@ const submit = async () => {
         if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userData",JSON.stringify(res.data.user));
-            // router.push({ path: "/metrology" });
+            router.push({ path: "/gildirak-sexi" });
         }
     } catch (error) {
         console.log(error);

@@ -16,9 +16,15 @@ app.use(cookieParser());
 //Import and use routes
 const authRoutes = require('./src/routes/authRoutes')
 const userRoutes = require('./src/routes/userRoutes')
+const ownerRoutes = require('./src/routes/ownerRoute')
+const ownerCompanyRoutes = require('./src/routes/ownerCompanyRoute')
+const vagonRoutes = require('./src/routes/vagonRoute')
 
 app.use('/api/auth', authRoutes)
-app.use('/api/users', userRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/owner', ownerRoutes)
+app.use('/api/owner-company', ownerCompanyRoutes)
+app.use('/api/vagon', vagonRoutes)
 
 app.use((req, res, next) => {
   res.setHeader(

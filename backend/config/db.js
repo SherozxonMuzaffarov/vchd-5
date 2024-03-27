@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('../models/users')
 
 const dbConnect = async() => {
     try {
@@ -12,22 +13,6 @@ const dbConnect = async() => {
         db.once('open', () => {
         console.log('Connected to MongoDB');
         });
-
-        const defaultUser = {
-            username: 'admin',
-            password: 'admin123',
-        };
-
-        // Checking if the default user already exists
-        const existingUser = await User.findOne({ username: defaultUser.username });
-
-        if (!existingUser) {
-            // Inserting the default user into the database
-            await User.create(defaultUser);
-            console.log('Default user inserted successfully.');
-        } else {
-            console.log('Default user already exists.');
-        }
     } catch (error) {
         console.log(error.message);
     }

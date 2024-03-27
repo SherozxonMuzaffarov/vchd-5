@@ -17,9 +17,38 @@
 				<span class="text">Home</span>
 			</router-link>
 
+			<router-link to="/vagon-nazorat"  class="button" @click="toggleVagonDropdown">
+				<span class="material-icons">train</span>
+				<span class="text">Вагон назорат</span>
+				<span class="material-icons dropdown-icon" :class="{ 'rotate': vagonDropdownOpen }">expand_more</span>
+			</router-link>
+
+			<div v-show="vagonDropdownOpen">
+				<router-link to="/vagon-nazorat/remain" class="button sub-button" >
+					<span class="material-icons">star</span>
+					<span class="text">Қолдиқ вагонлар</span>
+				</router-link>
+				<router-link to="/vagon-nazorat/repairing" class="button sub-button">
+					<span class="material-icons">star</span>
+					<span class="text">Тамирга олинган вагонлар</span>
+				</router-link>
+				<router-link to="/vagon-nazorat/repaired" class="button sub-button">
+					<span class="material-icons">star</span>
+					<span class="text">Тамирланган вагонлар</span>
+				</router-link>
+				<router-link to="/vagon-nazorat/owner" class="button sub-button">
+					<span class="material-icons">star</span>
+					<span class="text">Вагон эгаси</span>
+				</router-link>
+				<router-link to="/vagon-nazorat/owner-company" class="button sub-button">
+					<span class="material-icons">star</span>
+					<span class="text">Вагон фирма эгаси </span>
+				</router-link>
+			</div>
+
 			<router-link to="/gildirak-sexi"  class="button" @click="toggleAboutDropdown">
 				<span class="material-icons">description</span>
-				<span class="text">G'ildirak sexi</span>
+				<span class="text">Ғилдирак сехи</span>
 				<span class="material-icons dropdown-icon" :class="{ 'rotate': aboutDropdownOpen }">expand_more</span>
 			</router-link>
 
@@ -63,19 +92,33 @@
 <script setup>
 import { ref } from 'vue'
 import logoURL from '../assets/logo.jpg'
+// import { watch } from 'vue'
+// import { useRoute } from 'vue-router'
+
+// const route = useRoute()
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
+const vagonDropdownOpen = ref(false)
 const aboutDropdownOpen = ref(false)
+
+const toggleVagonDropdown = () => {
+	vagonDropdownOpen.value = !vagonDropdownOpen.value
+}
 
 const toggleAboutDropdown = () => {
   aboutDropdownOpen.value = !aboutDropdownOpen.value
-  console.log('About dropdown open:', aboutDropdownOpen.value);
 }
 
 const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
+
+// watch(() => route.path, () => {
+//     // Close the dropdowns when the route changes
+//     vagonDropdownOpen.value = false
+//     aboutDropdownOpen.value = false
+// })
 </script>
 
 <style lang="scss" scoped>

@@ -15,16 +15,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  depo_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Depo',
-    default: null
-  },
   role: {
     type: String,
-    enum: ['Admin', 'User'],
+    enum: ['admin', "g'ildirakSexi"],
     required: true,
-    default: 'User'
+    default: 'admin'
   }
 }, {
   timestamps: true

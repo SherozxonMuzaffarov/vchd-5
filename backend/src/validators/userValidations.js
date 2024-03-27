@@ -17,7 +17,6 @@ module.exports = {
   },
 
   login: (req, res, next) => {
-    console.log(req.body)
     const schema = Joi.object({
       phone_number: Joi.string().required(),
       password: Joi.string().min(6).required(),
