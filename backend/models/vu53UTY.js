@@ -61,6 +61,10 @@ const vu53UTYSchema = new mongoose.Schema({
     is_used: {
         type: Boolean,
         default: false
+    }, 
+    expense: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vu53Expense',
     }
 },{
     timestamps:true

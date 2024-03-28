@@ -47,7 +47,43 @@ module.exports = {
             }).required(),
             status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
             depo: Joi.string().valid('ВЧД-6'),
-            is_used: Joi.boolean().default(false)
+            is_used: Joi.boolean().default(false),
+
+            // VU53 Expense
+            register_time: Joi.string().required(),
+            mediator: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            obod_thickness: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            prokat: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            disk_thickness: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            grebn_thickness: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            diameter_krug: Joi.object({
+                right: Joi.number().optional(),
+                left: Joi.number().optional()
+            }).optional(),
+            distance: Joi.number().optional(),
+            with_rurning: Joi.string().optional(),
+            without_turning: Joi.string().optional(),
+            otherWorks: Joi.string().optional(),
+            full_examination_date: Joi.string().optional(),
+
+            // Specific fields for referencing VagonModel
+            vagonType: Joi.string().valid('Vu53KZX', 'Vu53OTY', 'Vu53SOB').required(),
+            vagon: Joi.string().required(),
 
     });
 

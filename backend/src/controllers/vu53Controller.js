@@ -1,6 +1,7 @@
 const Vu53UTYModel = require('../../models/vu53UTY');
 const Vu53SOBModel = require('../../models/vu53SOB');
 const Vu53KZXModel = require('../../models/vu53KZX');
+const Vu53ExpenseModel = require('../../models/vu53Expense');
 
 module.exports = {
     create: async (req, res) => {
@@ -32,9 +33,55 @@ module.exports = {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     },
+    createExpense: async (req, res) => {
+        try {
+              
+            let createdModel = await Vu53ExpenseModel.create(req.body);
+
+            let updatedModel = await Vu53UTYModel.findByIdAndUpdate(
+                {id: req.body.vagon},
+                {is_used: true, expense: createdModel._id},
+                { new: true }
+            );
+            
+            
+            if (!updatedModel) {
+                let nestedUpdatedModel = await Vu53SOBModel.findByIdAndUpdate(
+                    {id: req.body.vagon},
+                    {is_used: true, expense: createdModel._id},
+                    { new: true }
+                );
+
+                if (!nestedUpdatedModel) {
+                    let twiceNestedUpdatedModel = await Vu53KZXModel.findByIdAndUpdate(
+                        {id: req.body.vagon},
+                        {is_used: true, expense: createdModel._id},
+                        { new: true }
+                    ); 
+                    if (!twiceNestedUpdatedModel) {
+                        return res.status(404).json({ message: 'Model not found' });
+                    } else {
+                        res.send(twiceNestedUpdatedModel);
+                    }
+                } else {
+                    res.send(nestedUpdatedModel);
+                }
+            } else {
+                res.send(updatedModel);
+            }
+
+            if (!updatedModel) {
+                return res.status(404).json({ message: 'Model not found' });
+            }
+
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
     getAll: async (req, res) => {
         const status = req.query.status;
-        console.log("status: " + status);
         try {
             let model;
             if (status == 'ЎТЙ') {
@@ -55,11 +102,19 @@ module.exports = {
         }
     },
     getOne: async (req, res) => {
+        const {id, status} = req.params;
         try {
-            let model = await Vu53UTYModel.findById(req.params.id);
+            let model;
+            if (status == 'ЎТЙ') {
+                model = await Vu53UTYModel.findById(id).populate('vagon', 'nomer');
+            } else if (status == 'СОБ') {
+                model = Vu53SOBModel.findById(id).populate('vagon', 'nomer');
+            } else if (status == 'КЗХ') {
+                model = await Vu53KZXModel.findById(id).populate('vagon', 'nomer');
+            }
 
             if (!model) {
-                return res.status(404).json({ message: `${req.params.id} id record not found` });
+                return res.status(404).json({ message: ' Record not found' });
             }
 
             res.send(model);
@@ -68,62 +123,40 @@ module.exports = {
         }
     },
     update: async (req, res) => {
+        
         try {
 
             const { id } = req.params;
-            const {
-                register_number,
-                registerTime,
-                type,
-                number,
-                defective,
-                oSYear,
-                last_repair,
-                buksa,
-                diameter
-            } = req.body;
-            
-            let updatedModel = await VagonModel.findByIdAndUpdate(
-                id,
-                {
-                    register_number,
-                    registerTime,
-                    type,
-                    number,
-                    defective,
-                    oSYear,
-                    last_repair,
-                    buksa,
-                    diameter,
-                },
-                { new: true }
-            );
+            const status = req.body.status 
+           
+            let updatedModel;
+            if (status == 'ЎТЙ') {
+                updatedModel = await Vu53UTYModel.findByIdAndUpdate(
+                    id,
+                    req.body,
+                    { new: true }
+                );
+            } else if (status == 'СОБ') {
+                updatedModel = await Vu53SOBModel.findByIdAndUpdate(
+                    id,
+                    req.body,
+                    { new: true }
+                );
+            } else if (status == 'КЗХ') {
+                updatedModel = await Vu53KZXModel.findByIdAndUpdate(
+                    id,
+                    req.body,
+                    { new: true }
+                );
+            }
 
             if (!updatedModel) {
                 return res.status(404).json({ message: 'Model not found' });
             }
 
             res.send(updatedModel);
-
-            const updatedVu53 = await Vu53UTYModel.findByIdAndUpdate(id, newData, { new: true });
-            return updatedVu53;
         } catch (error) {
             throw error;
         }
     },
-    delete: async (req, res) => {
-        try {
-            const { id } = req.params;
-
-            let deletedModel = await Vu53UTYModel.findByIdAndDelete(id);
-
-            if (!deletedModel) {
-                return res.status(404).json({ message: 'Model not found' });
-            }
-
-            res.json(deletedModel);
-        } catch (error) {
-            throw error;
-        }
-    }
 };
