@@ -1,92 +1,97 @@
 <template>
-	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
-		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
-		</div>
-
-		<div class="menu-toggle-wrap">
-			<button class="menu-toggle" @click="ToggleMenu">
-				<span class="material-icons">keyboard_double_arrow_right</span>
-			</button>
-		</div>
-
-		<h3>Menu</h3>
-		<div class="menu">
-			<router-link to="/" class="button">
-				<span class="material-icons">home</span>
-				<span class="text">Home</span>
-			</router-link>
-
-			<router-link to="/vagon-nazorat"  class="button" @click="toggleVagonDropdown">
-				<span class="material-icons">train</span>
-				<span class="text">Вагон назорат</span>
-				<span class="material-icons dropdown-icon" :class="{ 'rotate': vagonDropdownOpen }">expand_more</span>
-			</router-link>
-
-			<div v-show="vagonDropdownOpen">
-				<router-link to="/vagon-nazorat/remain" class="button sub-button" >
-					<span class="material-icons">star</span>
-					<span class="text">Қолдиқ вагонлар</span>
-				</router-link>
-				<router-link to="/vagon-nazorat/repairing" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">Тамирга олинган вагонлар</span>
-				</router-link>
-				<router-link to="/vagon-nazorat/repaired" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">Тамирланган вагонлар</span>
-				</router-link>
-				<router-link to="/vagon-nazorat/owner" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">Вагон эгаси</span>
-				</router-link>
-				<router-link to="/vagon-nazorat/owner-company" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">Вагон фирма эгаси </span>
-				</router-link>
+	<div class="d-flex">
+		<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+			<div class="logo">
+				<img :src="logoURL" alt="Vue" /> 
 			</div>
 
-			<router-link to="/gildirak-sexi"  class="button" @click="toggleAboutDropdown">
-				<span class="material-icons">description</span>
-				<span class="text">Ғилдирак сехи</span>
-				<span class="material-icons dropdown-icon" :class="{ 'rotate': aboutDropdownOpen }">expand_more</span>
-			</router-link>
-
-			<div v-show="aboutDropdownOpen">
-				<router-link to="/gildirak-sexi/vu-53" class="button sub-button" >
-					<span class="material-icons">star</span>
-					<span class="text">ВУ-53</span>
-				</router-link>
-				<router-link to="/gildirak-sexi/vu-90" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">ВУ-90</span>
-				</router-link>
-				<router-link to="/gildirak-sexi/vu-91" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">ВУ-91</span>
-				</router-link>
-				<router-link to="/gildirak-sexi/naplavka" class="button sub-button">
-					<span class="material-icons">star</span>
-					<span class="text">Наплавка</span>
-				</router-link>
+			<div class="menu-toggle-wrap">
+				<button class="menu-toggle" @click="ToggleMenu">
+					<span class="material-icons">keyboard_double_arrow_right</span>
+				</button>
 			</div>
 
-			<router-link to="/users" class="button">
-				<span class="material-icons">group</span>
-				<span class="text">Foydalanuvchilar</span>
-			</router-link>
+			<h3>Menu</h3>
+			<div class="menu">
+				<router-link to="/" class="button">
+					<span class="material-icons">home</span>
+					<span class="text">Home</span>
+				</router-link>
 
-		</div>
+				<router-link to="/vagon-nazorat"  class="button" @click="toggleVagonDropdown">
+					<span class="material-icons">train</span>
+					<span class="text">Вагон назорат</span>
+					<span class="material-icons dropdown-icon" :class="{ 'rotate': vagonDropdownOpen }">expand_more</span>
+				</router-link>
 
-		<div class="flex"></div>
-		
-		<div class="menu">
-			<router-link to="/settings" class="button">
-				<span class="material-icons">settings</span>
-				<span class="text">Settings</span>
-			</router-link>
-		</div>
-	</aside>
+				<div v-show="vagonDropdownOpen">
+					<router-link to="/vagon-nazorat/remain" class="button sub-button" >
+						<span class="material-icons">star</span>
+						<span class="text">Қолдиқ вагонлар</span>
+					</router-link>
+					<router-link to="/vagon-nazorat/repairing" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">Тамирга олинган вагонлар</span>
+					</router-link>
+					<router-link to="/vagon-nazorat/repaired" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">Тамирланган вагонлар</span>
+					</router-link>
+					<router-link to="/vagon-nazorat/owner" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">Вагон эгаси</span>
+					</router-link>
+					<router-link to="/vagon-nazorat/owner-company" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">Вагон фирма эгаси </span>
+					</router-link>
+				</div>
+
+				<router-link to="/gildirak-sexi"  class="button" @click="toggleAboutDropdown">
+					<span class="material-icons">description</span>
+					<span class="text">Ғилдирак сехи</span>
+					<span class="material-icons dropdown-icon" :class="{ 'rotate': aboutDropdownOpen }">expand_more</span>
+				</router-link>
+
+				<div v-show="aboutDropdownOpen">
+					<router-link to="/gildirak-sexi/vu-53" class="button sub-button" >
+						<!-- <span class="material-icons">star</span> -->
+						<span class="m-1"><i class="bi bi-5-circle"></i><i class="bi bi-3-circle"></i></span>
+						
+						<span class="text m-1">ВУ-53</span>
+					</router-link>
+					<router-link to="/gildirak-sexi/vu-90" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">ВУ-90</span>
+					</router-link>
+					<router-link to="/gildirak-sexi/vu-91" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">ВУ-91</span>
+					</router-link>
+					<router-link to="/gildirak-sexi/naplavka" class="button sub-button">
+						<span class="material-icons">star</span>
+						<span class="text">Наплавка</span>
+					</router-link>
+				</div>
+
+				<router-link to="/users" class="button">
+					<span class="material-icons">group</span>
+					<span class="text">Foydalanuvchilar</span>
+				</router-link>
+
+			</div>
+
+			<div class="flex"></div>
+			
+			<div class="menu">
+				<router-link to="/settings" class="button">
+					<span class="material-icons">settings</span>
+					<span class="text">Settings</span>
+				</router-link>
+			</div>
+		</aside>
+		<router-view/>
+</div>
 </template>
 
 <script setup>

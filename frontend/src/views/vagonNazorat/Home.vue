@@ -1,7 +1,7 @@
 <template>
-	<main id="about-page">
-		<h1>Vagon nazorrat home</h1>
-		<p>This is the about page</p>
+	<main id="home-page vw-100">
+		<h4>Вагон назорат</h4>
+		<router-view/>
 	</main>
 </template>
 

@@ -3,12 +3,14 @@ const VagonModel = require('../../models/vagon');
 module.exports = {
     getAll: async (req, res) => {
         try {
-            const { depo, vagonType, repairType, ownerCompany, owner } = req.query
+            const { vagonType, repairType, ownerCompany, owner } = req.query
 
             // Construct the query object based on provided parameters
             const query = {
-                status: 'remain',
-                ...(depo && depo !== "O'zvagonta'mir" && { depo }),
+                $or: [
+                    { status: 'remain' },
+                    { status: 'repairing' }
+                ],
                 ...(vagonType && { vagon_type: vagonType }),
                 ...(repairType && { repair_type: repairType }),
                 ...(ownerCompany && { owner_company_id: ownerCompany }), 
@@ -16,9 +18,19 @@ module.exports = {
             };
     
             // Now you can use the constructed query object in your logic
-            let models = await VagonModel.find(query).populate('owner_id', 'name').populate('owner_company_id', 'name');
+            let models = await VagonModel.find(query).populate('owner_id', 'name').populate('owner_company_id', 'name').sort({ createdAt: -1 });
             res.send(models);
             
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ name: 'Internal Server Error' });
+        }
+    },
+
+    getAllRepairingVagons: async (req, res) => {
+        try {
+            let models = await VagonModel.find({status: 'repairing'}).populate('owner_id', 'name').populate('owner_company_id', 'name').sort({ timeOfRepair: -1 });
+            res.send(models);
         } catch (error) {
             console.error(error);
             res.status(500).json({ name: 'Internal Server Error' });
@@ -42,9 +54,9 @@ module.exports = {
 
     create: async (req, res) => {
         try {
-
             let model = await VagonModel.create({
                 ...req.body,
+                depo: 'VCHD-6',
                 status: 'remain',
             });
 
@@ -112,48 +124,54 @@ module.exports = {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     },
+    
+    getToRepair: async (req, res) => {
+        try {
+            const { id } = req.params;
+            
+            let updatedModel = await VagonModel.findByIdAndUpdate(
+                id,
+                {
+                    status: 'repairing',
+                    timeOfRepair: Date()
+                },
+                { new: true }
+            );
+
+            if (!updatedModel) {
+                return res.status(404).json({ message: 'VagonModel not found' });
+            }
+
+            res.send(updatedModel);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
 
     generateRemainVagonTable: async (req, res) => {
         try {
-            const depoList = [
-                {name: 'VCHD-3'}, 
-                {name: 'VCHD-5'}, 
-                {name: 'VCHD-6'}
-            ]
-            const vagonTypes = [
-                {name: 'Yopiq vagon (крыт)'}, 
-                {name: 'Platforma (пф)'}, 
-                {name: 'Yarim ochiq vagon (пв)'}, 
-                {name: 'Sisterna (цс)'}, 
-                {name: 'Boshqa turdagi (проч)'}
-            ]
-            let tableData = [['Vagon Type', 'Total']];
+            const summary = await VagonModel.aggregate([
+                {
+                  $group: {
+                    _id: {
+                      vagon_type: '$vagon_type',
+                      repair_type: '$repair_type'
+                    },
+                    count: { $sum: 1 }
+                  }
+                },
+                {
+                  $project: {
+                    _id: 0,
+                    vagon_type: '$_id.vagon_type',
+                    repair_type: '$_id.repair_type',
+                    count: 1
+                  }
+                }
+              ]);
 
-            depoList.forEach((depo) => {
-                tableData[0].splice(-1, 0, depo.name); // Insert depo.name before the 'Total' column
-            });
-
-            // Construct the table body
-            for (const vagonType of vagonTypes) {
-            const row = [vagonType.name];
-            let totalVagonCount = 0;
-
-            for (const depo of depoList) {
-                const vagonCount = await VagonModel.countDocuments({
-                vagon_type: vagonType.name,
-                depo: depo.name,
-                status: 'remain'
-                });
-
-                row.push(vagonCount);
-                totalVagonCount += vagonCount;
-            }
-
-            row.push(totalVagonCount);
-                tableData.push(row);
-            }
-
-            res.json(tableData);
+              res.json(summary);
         } catch (error) {
           console.error('Error:', error);
           res.status(500).json({ error: 'Internal Server Error' });

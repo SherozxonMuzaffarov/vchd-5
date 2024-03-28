@@ -1,12 +1,5 @@
 <template>
-	<div class="app">
-
-		
-		
-		<!-- Sidebar -->
-		<!-- Conditionally render the sidebar based on meta property -->
-		<!-- <Sidebar v-if="!$route.meta.hideSidebar" /> -->
-		
+	<div class="app">		
 		<!-- Content -->
 		<router-view />
 		

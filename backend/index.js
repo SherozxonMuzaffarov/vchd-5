@@ -19,12 +19,14 @@ const userRoutes = require('./src/routes/userRoutes')
 const ownerRoutes = require('./src/routes/ownerRoute')
 const ownerCompanyRoutes = require('./src/routes/ownerCompanyRoute')
 const vagonRoutes = require('./src/routes/vagonRoute')
+const vu53Routes = require('./src/routes/vu53Route')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/owner', ownerRoutes)
 app.use('/api/owner-company', ownerCompanyRoutes)
 app.use('/api/vagon', vagonRoutes)
+app.use('/api/gildirak-sexi/vu-53', vu53Routes)
 
 app.use((req, res, next) => {
   res.setHeader(

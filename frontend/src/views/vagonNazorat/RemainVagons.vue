@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid w-100">
     <div class="d-flex align-items-center column-gap-2">
-      <p class="lead m-0"><i class="bi bi-house-door-fill"></i>Qoldiq Vagonlar</p>
+      <p class="lead m-0"><i class="bi bi-house-door-fill"></i>Қолдиқ вагонлар</p>
     </div>
 
     <!-- Modal create -->
@@ -32,20 +32,24 @@
           </BFormSelect>
         </div>
         <div class="col-6">
-          <label for="repairType" class="form-label">Tamir Turi</label>
+          <label for="repairType" class="form-label">Tamirga kelgan turi</label>
           <BFormSelect v-model="formData.repair_type" :options="repairTypes" id="repairType" class="mb-3" >
             <template #first>
-              <BFormSelectOption :value="null" disabled>-- Tamir turi --</BFormSelectOption>
+              <BFormSelectOption :value="null" disabled>--  Tamirga kelgan turi --</BFormSelectOption>
             </template>
           </BFormSelect>
         </div>
         <div class="col-6">
-          <label for="depo" class="form-label">Depo</label>
-          <BFormSelect v-model="formData.depo" :options="depos" id="depo" class="mb-3">
+          <label for="lastRepairType" class="form-label">Oxirgi tamir turi</label>
+          <BFormSelect v-model="formData.last_repair_type" :options="repairTypes" id="lastRepairType" class="mb-3" >
             <template #first>
-              <BFormSelectOption :value="null" disabled>-- Depo --</BFormSelectOption>
+              <BFormSelectOption :value="null" disabled>-- Oxirgi tamir turi --</BFormSelectOption>
             </template>
           </BFormSelect>
+        </div>
+        <div class="col-6">
+          <label for="year" class="form-label">Oxirgi tamir vaqti</label>
+          <BFormInput v-model="formData.last_repair_year" id="year" placeholder='kun-oy-yill'/>
         </div>
         <div class="col-6">
           <label for="ownerCompanies" class="form-label">Firma egasi</label>
@@ -63,7 +67,7 @@
             </template>
           </BFormSelect>
         </div>
-        <div class="col-6">
+        <div>
           <label for="remainComment" class="form-label">Izoh</label>
           <BFormInput v-model="formData.remain_comment" id="remainComment" class="mb-3" placeholder="Izoh" />
         </div>
@@ -81,7 +85,7 @@
       cancelTitle="Chiqish"
       okTitle="Saqlash"
     >
-      <div class="row">
+    <div class="row">
         <div class="col-6">
           <label for="nomer" class="form-label">Vagon nomeri</label>
           <BFormInput v-model="formData.nomer" id="nomer" class="mb-3" />
@@ -92,31 +96,35 @@
         </div>
         <div class="col-6">
           <label for="vagonType" class="form-label">Vagon turi</label>
-          <BFormSelect v-model="formData.vagon_type" :options="vagonTypes" id="vagonType" class="mb-3" >
+          <BFormSelect v-model="formData.vagon_type" :options="vagonTypes" id="vagonType" class="mb-3">
             <template #first>
-              <BFormSelectOption :value="null" disabled >-- vagon turi --</BFormSelectOption>
+              <BFormSelectOption :value="null" disabled >-- vagon turi --</BFormSelectOption >
             </template>
           </BFormSelect>
         </div>
         <div class="col-6">
-          <label for="repairType" class="form-label">Tamir Turi</label>
+          <label for="repairType" class="form-label">Tamirga kelgan turi</label>
           <BFormSelect v-model="formData.repair_type" :options="repairTypes" id="repairType" class="mb-3" >
             <template #first>
-              <BFormSelectOption :value="null" disabled >-- Tamir turi --</BFormSelectOption >
+              <BFormSelectOption :value="null" disabled>--  Tamirga kelgan turi --</BFormSelectOption>
             </template>
           </BFormSelect>
         </div>
         <div class="col-6">
-          <label for="depo" class="form-label">Depo</label>
-          <BFormSelect v-model="formData.depo" :options="depos" id="depo" class="mb-3">
+          <label for="lastRepairType" class="form-label">Oxirgi tamir turi</label>
+          <BFormSelect v-model="formData.last_repair_type" :options="repairTypes" id="lastRepairType" class="mb-3" >
             <template #first>
-              <BFormSelectOption :value="null" disabled>-- Depo --</BFormSelectOption>
+              <BFormSelectOption :value="null" disabled>-- Oxirgi tamir turi --</BFormSelectOption>
             </template>
           </BFormSelect>
+        </div>
+        <div class="col-6">
+          <label for="year" class="form-label">Oxirgi tamir vaqti</label>
+          <BFormInput v-model="formData.last_repair_year" id="year" placeholder='kun-oy-yill'/>
         </div>
         <div class="col-6">
           <label for="ownerCompanies" class="form-label">Firma egasi</label>
-          <BFormSelect v-model="formData.owner_company_id" :options="ownerCompanies" id="ownerCompanies" class="mb-3">
+          <BFormSelect v-model="formData.owner_company_id" :options="ownerCompanies" id="ownerCompanies"  class="mb-3" >
             <template #first>
               <BFormSelectOption :value="null" disabled>-- Firma egasi --</BFormSelectOption>
             </template>
@@ -124,213 +132,19 @@
         </div>
         <div class="col-6">
           <label for="owner" class="form-label">Egasi</label>
-          <BFormSelect v-model="formData.owner_id"  :options="owners" id="owner" class="mb-3">
+          <BFormSelect v-model="formData.owner_id" :options="owners" id="owner" class="mb-3" >
             <template #first>
               <BFormSelectOption :value="null" disabled>-- Egasi --</BFormSelectOption>
             </template>
           </BFormSelect>
         </div>
-        <div class="col-6">
+        <div>
           <label for="remainComment" class="form-label">Izoh</label>
-          <BFormInput v-model="formData.remain_comment"  id="remainComment" class="mb-3" placeholder="Izoh" />
+          <BFormInput v-model="formData.remain_comment" id="remainComment" class="mb-3" placeholder="Izoh" />
         </div>
       </div>
     </BModal>
     <!-- Modal update -->
-
-    <!-- Modal Repair -->
-    <BModal
-      v-model="modalInputData"
-      @ok.prevent="handleInputData"
-      @keyup.enter="handleInputData"
-      @cancel="modalInputData = !modalInputData"
-      cancelTitle="Chiqish"
-      okTitle="Saqlash"
-      size="xl"
-      scrollable
-    >
-      <div class="container bg-yellow d-flex justify-content-center text-black">
-        <h5>Yon ramalari (bak.ram)</h5>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="ramaRight1Year" class="form-label">1-o'ng yon ramasi</label>
-          <BFormInput
-            v-model="inputData.ramaRight1Year"
-            id="ramaRight1Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.ramaRight1Number"
-            id="ramaRight1Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-        <div class="col">
-          <label for="ramaRight2Year" class="form-label">2-o'ng yon ramasi</label>
-          <BFormInput
-            v-model="inputData.ramaRight2Year"
-            id="ramaRight2Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.ramaRight2Number"
-            id="ramaRight2Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="ramaLeft1Year" class="form-label">1-chap yon ramasi</label>
-          <BFormInput
-            v-model="inputData.ramaLeft1Year"
-            id="ramaLeft1Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.ramaLeft1Number"
-            id="ramaLeft1Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-        <div class="col-6">
-          <label for="ramaLeft2Year" class="form-label">2-chap yon ramasi</label>
-          <BFormInput
-            v-model="inputData.ramaLeft2Year"
-            id="ramaLeft2Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.ramaLeft2Number"
-            id="ramaLeft2Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-      </div>
-      <div class="container bg-yellow d-flex justify-content-center text-black">
-        <h5>Ressor usti balkasi</h5>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="balka1Year" class="form-label">1-balka</label>
-          <BFormInput
-            v-model="inputData.balka1Year"
-            id="balka1Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.balka1Number"
-            id="balka1Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-        <div class="col">
-          <label for="balka2Year" class="form-label">2-balka</label>
-          <BFormInput
-            v-model="inputData.balka2Year"
-            id="balka2Year"
-            class="mb-3"
-            placeholder="ishlab chiqarilgan yili"
-          />
-          <BFormInput
-            v-model="inputData.balka2Number"
-            id="balka2Number"
-            class="mb-3"
-            placeholder="nameri"
-          />
-        </div>
-      </div>
-      <div class="container bg-yellow d-flex justify-content-center text-black">
-        <h5>G'ildirak juftligi</h5>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="gildirak1" class="form-label">Gildirak 1</label>
-          <BFormInput
-            v-model="inputData.gildirak1"
-            id="gildirak1"
-            class="mb-3"
-            placeholder="tegishliligi (27,29)"
-          />
-          <BFormInput
-            v-model="inputData.gildirak1Number"
-            id="gildirak1Number"
-            class="mb-3"
-            placeholder="nomeri (123456)"
-          />
-        </div>
-        <div class="col">
-          <label for="gildirak2" class="form-label">Gildirak 2</label>
-          <BFormInput
-            v-model="inputData.gildirak2"
-            id="gildirak2"
-            class="mb-3"
-            placeholder="tegishliligi (27,29)"
-          />
-          <BFormInput
-            v-model="inputData.gildirak2Number"
-            id="gildirak2Number"
-            class="mb-3"
-            placeholder="nomeri (123456)"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="gildirak3" class="form-label">Gildirak 3</label>
-          <BFormInput
-            v-model="inputData.gildirak3"
-            id="gildirak3"
-            class="mb-3"
-            placeholder="tegishliligi (27,29)"
-          />
-          <BFormInput
-            v-model="inputData.gildirak3Number"
-            id="gildirak3Number"
-            class="mb-3"
-            placeholder="nomeri (123456)"
-          />
-        </div>
-        <div class="col">
-          <label for="gildirak4" class="form-label">Gildirak 4</label>
-          <BFormInput
-            v-model="inputData.gildirak4"
-            id="gildirak4"
-            class="mb-3"
-            placeholder="tegishliligi (27,29)"
-          />
-          <BFormInput
-            v-model="inputData.gildirak4Number"
-            id="gildirak4Number"
-            class="mb-3"
-            placeholder="nomeri (123456)"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="inputComment" class="form-label">Izoh</label>
-          <BFormInput
-            v-model="inputData.input_comment"
-            id="inputComment"
-            class="mb-3"
-            placeholder="izoh"
-          />
-        </div>
-      </div>
-    </BModal>
-    <!-- Modal Repair -->
 
     <!-- Filter -->
     <div class="row mt-5">
@@ -347,13 +161,6 @@
                 <i class="bi bi-plus-circle me-2"></i>
                 <span>Vagon qo'shish</span>
               </button>
-              <div class="col">
-                <BFormSelect v-model="selectedDepo" :options="depos" class="mb-3">
-                  <template #first>
-                    <BFormSelectOption :value="null" disabled>-- Depo --</BFormSelectOption>
-                  </template>
-                </BFormSelect>
-              </div>
               <div class="col">
                 <BFormSelect  v-model="selectedVagonType" :options="vagonTypes" class="mb-3" >
                   <template #first>
@@ -398,12 +205,21 @@
     <div class="mt-5">
       <div class="card shadow-sm" style="overflow: auto; white-space: nowrap">
         <div class="card-body">
-          <BTableSimple striped="true" hover="true" bordered="true" class="mt-4">
+
+          <BTableSimple  striped="true" hover="true" bordered="true" class="mt-4">
+            <BThead  class="table-dark">
+              <BTr class="align-middle">
+                <BTh>Vagon Type / Repair Type</BTh>
+                <BTh v-for="repairType in repairTypes" :key="repairType.value">
+                  {{ repairType.text }}
+                </BTh>
+              </BTr>
+            </BThead>
             <BTbody>
-              <BTr v-for="(row, rowIndex) in tableDatas" :key="rowIndex">
-                <BTd>{{ row[0] }}</BTd>
-                <BTd v-for="(count, columnIndex) in row.slice(1)" :key="columnIndex">
-                  {{ count }}
+              <BTr  class="align-middle" v-for="vagonType in vagonTypes" :key="vagonType.value">
+                <BTd>{{ vagonType.text }}</BTd>
+                <BTd v-for="repairType in repairTypes" :key="repairType.value">
+                  {{ getCount(vagonType.value, repairType.value) }}
                 </BTd>
               </BTr>
             </BTbody>
@@ -422,12 +238,13 @@
                 <BTh scope="col">№</BTh>
                 <BTh scope="col">Nomeri</BTh>
                 <BTh scope="col">Vagon turi</BTh>
+                <BTh scope="col">Oxirgi tamir turi</BTh>
+                <BTh scope="col">Oxirgi tamir vaqti</BTh>
+                <BTh scope="col">Depoga kelgan vaqti</BTh>
                 <BTh scope="col">Ta'mir turi</BTh>
+                <BTh scope="col">Yili</BTh>
                 <BTh scope="col">Firma</BTh>
                 <BTh scope="col">Egasi</BTh>
-                <BTh scope="col">Yili</BTh>
-                <BTh scope="col">VCHD</BTh>
-                <BTh scope="col">Depoga kelgan vaqti</BTh>
                 <BTh scope="col">Izoh</BTh>
                 <BTh scope="col" class="d-flex justify-content-center"> Action </BTh>
               </BTr>
@@ -437,24 +254,23 @@
                 <BTh class="id-tr">{{ index + 1 }}</BTh>
                 <BTd>{{ item?.nomer }}</BTd>
                 <BTd>{{ item?.vagon_type }}</BTd>
+                <BTd>{{ item?.last_repair_type }}</BTd>
+                <BTd>{{ item?.last_repair_year }}</BTd>
+                <BTd>{{ item?.createdAt }}</BTd>
                 <BTd>{{ item?.repair_type}}</BTd>
+                <BTd>{{ item?.year }}</BTd>
                 <BTd>{{ item?.owner_company_id?.name }}</BTd>
                 <BTd>{{ item?.owner_id?.name }}</BTd>
-                <BTd>{{ item?.year }}</BTd>
-                <BTd>{{ item?.depo }}</BTd>
-                <BTd>{{ item?.createdAt }}</BTd>
                 <BTd>{{ item?.remain_comment }}</BTd>
-                <BTd class="d-flex justify-content-center">
+                <BTd v-if="item?.status =='remain'" class="d-flex justify-content-center">
                   <button @click="getOne(item._id)" class="btn btn-primary m-1">
                     <i class="bi bi-pen-fill"></i>
                   </button>
-                  <button @click="addInputData(item._id)" class="btn btn-success m-1">
+                  <button @click="getToRepair(item._id)" class="btn btn-success m-1">
                     <i class="bi bi-arrow-up-right-square-fill"></i>
                   </button>
-                  <!-- <button @click="deleteItem(item._id)" class="btn btn-danger m-0">
-                    <i class="bi bi-trash-fill"></i>
-                  </button> -->
                 </BTd>
+                <BTd v-else class="d-flex justify-content-center text-red">tamirga olingan</BTd>
               </BTr>
             </BTbody>
           </BTableSimple>
@@ -474,16 +290,17 @@ const userData = ref({});
 
 const modalCreate = ref(false);
 const modalUpdate = ref(false);
-const modalInputData = ref(false);
 const Data = ref([]);
 let owners = ref([]);
 let ownerCompanies = ref([]);
 let tableDatas = ref([]);
-let selectedDepo = ref('');
+const summaryData = ref([]);
+
 let selectedVagonType = ref('');
 let selectedRepairType = ref('');
 let selectedOwnerCompany = ref('');
 let selectedOwner = ref('');
+
 
 let vagonTypes = ref([
   {value: 'Yopiq vagon (крыт)', text: 'Yopiq vagon (крыт)'},
@@ -500,58 +317,17 @@ let repairTypes = ref([
   {value: 'TO-3', text: 'TO-3'},
 ]);
 
-let depos = ref([
-  {value: 'VCHD-3', text: 'VCHD-3'},
-  {value: 'VCHD-5', text: 'VCHD-5'},
-  {value: 'VCHD-6', text: 'VCHD-6'},
-]);
-
 const formData = ref({
   _id: null,
   nomer: null,
   vagon_type: null,
   repair_type: null,
+  last_repair_type: null,
+  last_repair_year: null,
   owner_id: null,
   owner_company_id: null,
   year: null,
-  depo: null,
   remain_comment: null,
-});
-
-const inputData = ref({
-  vagon_id: null,
-
-  ramaRight1Year: null,
-  ramaRight1Number: null,
-
-  ramaRight2Year: null,
-  ramaRight2Number: null,
-
-  ramaLeft1Year: null,
-  ramaLeft1Number: null,
-
-  ramaLeft2Year: null,
-  ramaLeft2Number: null,
-
-  balka1Year: null,
-  balka1Number: null,
-
-  balka2Year: null,
-  balka2Number: null,
-
-  gildirak1: null,
-  gildirak1Number: null,
-
-  gildirak2: null,
-  gildirak2Number: null,
-
-  gildirak3: null,
-  gildirak3Number: null,
-
-  gildirak4: null,
-  gildirak4Number: null,
-
-  input_comment: null,
 });
 
 const makeFormNull = () => {
@@ -562,12 +338,10 @@ const makeFormNull = () => {
   formData.value.owner_id = null,
   formData.value.owner_company_id = null,
   formData.value.year = null,
-  formData.value.depo = null,
   formData.value.remain_comment = null
 };
 
 const resetFilter = () => {
-  selectedDepo.value = userData.value.depo,
   selectedVagonType.value = '',
   selectedRepairType.value = '',
   selectedOwnerCompany.value = '',
@@ -633,7 +407,7 @@ function formatDate(dateString) {
 //getAllVagon
 let getAll = async () => {
   try {
-    let res = await axios.get(`/api/vagon/all?depo=${encodeURIComponent(selectedDepo.value)}&vagonType=${encodeURIComponent(selectedVagonType.value)}&repairType=${encodeURIComponent(selectedRepairType.value)}&ownerCompany=${encodeURIComponent(selectedOwnerCompany.value)}&owner=${encodeURIComponent(selectedOwner.value)}`);
+    let res = await axios.get(`/api/vagon/all?vagonType=${encodeURIComponent(selectedVagonType.value)}&repairType=${encodeURIComponent(selectedRepairType.value)}&ownerCompany=${encodeURIComponent(selectedOwnerCompany.value)}&owner=${encodeURIComponent(selectedOwner.value)}`);
 
     if (res.data) { 
       Data.value = res.data.map(item => {
@@ -710,65 +484,37 @@ let getAllOwnerCompanys = async () => {
 //getVagonTable
 let getVagonTable = async () => {
   try {
-    const res = await axios.get("/api/vagon/get-vagon-table/remain"); // Replace with your API endpoint
-
-    tableDatas.value = res.data;
+    const res = await axios.get("/api/vagon/get-vagon-table/remain"); 
+    if(res.data) {
+      tableDatas.value = res.data;
+    }
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 };
 
-// addInputData;
-let addInputData = async (id) => {
-  inputData.value.vagon_id = id;
-  modalInputData.value = !modalInputData.value;
+const getCount = (vagonType, repairType) => {
+  const entry = tableDatas.value.find(
+    (item) => item.vagon_type === vagonType && item.repair_type === repairType
+  );
+  return entry ? entry.count : 0;
 };
 
-const makeInputDataNull = () => {
-  inputData.value.vagon_id = null;
-
-  inputData.value.ramaRight1Year = null;
-  inputData.value.ramaRight1Number = null;
-
-  inputData.value.ramaRight2Year = null;
-  inputData.value.ramaRight2Number = null;
-
-  inputData.value.ramaLeft1Year = null;
-  inputData.value.ramaLeft1Number = null;
-
-  inputData.value.ramaLeft2Year = null;
-  inputData.value.ramaLeft2Number = null;
-
-  inputData.value.balka1Year = null;
-  inputData.value.balka1Number = null;
-
-  inputData.value.balka2Year = null;
-  inputData.value.balka2Number = null;
-
-  inputData.value.gildirak1 = null;
-  inputData.value.gildirak1Number = null;
-
-  inputData.value.gildirak2 = null;
-  inputData.value.gildirak2Number = null;
-
-  inputData.value.gildirak3 = null;
-  inputData.value.gildirak3Number = null;
-
-  inputData.value.gildirak4 = null;
-  inputData.value.gildirak4Number = null;
-
-  inputData.value.input_comment = null;
-};
-
-//Create Input Data
-const handleInputData = async () => {
+// getToRepair;
+let getToRepair = async(id) => {
   try {
-    alert("Saqlamoqchi");
-    let res = await axios.post("/api/vagon-input-data/create", inputData.value);
-    if (res.data) {
-      modalInputData.value = !modalInputData.value;
-      makeInputDataNull();
-      router.push({ path: "/api/vagon/repairing-vagons" });
+    if (!id) return;
+    let confirmDelete = confirm("Ta'mirga olishni tasdiqlaysizmi?");
+    if (confirmDelete) {
+      try {
+        let res = await axios.patch("/api/vagon/get-to-repair/" + id);
+        alert("Ta'mirga olindi");
+        getAll();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Ta'mirga olishda xatolik");
     }
   } catch (error) {
     console.error(error);
@@ -779,7 +525,6 @@ onMounted(() => {
   const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       userData.value = JSON.parse(storedUserData);
-      selectedDepo.value = userData.value.depo
     }
   getAll();
   getVagonTable();
@@ -788,9 +533,9 @@ onMounted(() => {
 });
 
 watch(
-  [selectedDepo, selectedVagonType, selectedRepairType, selectedOwnerCompany, selectedOwner],
+  [ selectedVagonType, selectedRepairType, selectedOwnerCompany, selectedOwner],
   async () => {
-    if (selectedDepo.value !== undefined && selectedVagonType.value !== undefined && 
+    if (selectedVagonType.value !== undefined && 
         selectedRepairType.value !== undefined && selectedOwnerCompany.value !== undefined &&
         selectedOwner.value !== undefined) {
       getAll();
@@ -813,4 +558,7 @@ watch(
   text-align: center;
 }
 
+.text-red {
+    color: red;
+}
 </style>

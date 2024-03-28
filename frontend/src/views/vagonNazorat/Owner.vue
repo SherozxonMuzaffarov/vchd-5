@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <div class="d-flex align-items-center column-gap-2 mb-3">
       <p class="lead m-0"><i class="bi bi-house-door-fill"></i>Vagon egasi</p>
       <button class="btn btn-success" @click="modalCreate = !modalCreate">

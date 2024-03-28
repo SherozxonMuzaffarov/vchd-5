@@ -30,9 +30,18 @@ const vagonSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    last_repair_year: {
+        type: String,
+        required: true
+    },
+    last_repair_type: {
+        type: String,
+        enum: ['Depoli ta\'mir (ДР)', 'Kapital ta\'mir (КР)', 'KPR (КРП)', 'TO-3'],
+        required: true
+    },
     depo: {
         type: String,
-        enum: ['VCHD-3', 'VCHD-5', 'VCHD-6'],
+        enum: ['VCHD-6'],
         required: true
     },
     remain_comment: {
@@ -42,6 +51,9 @@ const vagonSchema = new mongoose.Schema({
         type: String,
         enum: ['remain', 'repairing', 'repaired'],
         required: true
+    },
+    timeOfRepair :{
+        type: Date
     },
     input_data_id: {
         type: mongoose.Schema.Types.ObjectId,

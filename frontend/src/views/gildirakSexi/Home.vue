@@ -1,8 +1,7 @@
 <template>
     <main>
-        <h1>"O'zvagontamir" AJ</h1>
-        <h2>Samarqand Vagon deposi</h2>
-        <h3>G'ildirak sexi</h3>
+        <h4>Ғилдирак сехи</h4>
+        <router-view/>
     </main>
 </template>
 

@@ -9,6 +9,7 @@ const router = createRouter({
       children: [
         {
           path: 'vagon-nazorat',
+          redirect: {path: '/vagon-nazorat/remain'},
           component: () => import('../views/vagonNazorat/Home.vue'),
           children: [
             {
@@ -30,15 +31,12 @@ const router = createRouter({
             {
               path: 'owner-company', // This will match /vagon-nazorat/repaired
               component: () => import('../views/vagonNazorat/OwnerCompany.vue')
-            },
-            {
-              path: '', // This will match /vagon-nazorat
-              component: () => import('../views/vagonNazorat/Home.vue')
             }
           ]
         },
         {
           path: 'gildirak-sexi',
+          redirect: {path: '/gildirak-sexi/vu-53'},
           component: () => import('../views/gildirakSexi/Home.vue'),
           children: [
             {
