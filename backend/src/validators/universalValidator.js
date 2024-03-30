@@ -3,8 +3,6 @@ const Joi = require('joi')
 module.exports = {
     validate: (req, res, next) => {
         const schema = Joi.object({
-
-
            // User
            _id: Joi.optional(),
            name: Joi.string().optional(),
@@ -50,7 +48,9 @@ module.exports = {
             is_used: Joi.boolean().default(false),
 
             // VU53 Expense
-            register_time: Joi.string().required(),
+            vu53: Joi.required(),
+            vu53_status: Joi.required(),
+            used_place: Joi.string().required(),
             mediator: Joi.object({
                 right: Joi.number().optional(),
                 left: Joi.number().optional()
@@ -80,16 +80,12 @@ module.exports = {
             without_turning: Joi.string().optional(),
             otherWorks: Joi.string().optional(),
             full_examination_date: Joi.string().optional(),
-
-            // Specific fields for referencing VagonModel
-            vagonType: Joi.string().valid('Vu53KZX', 'Vu53OTY', 'Vu53SOB').required(),
-            vagon: Joi.string().required(),
-
     });
 
         const { error } = schema.validate(req.body);
+        console.log(req.body);
         if (error) {
-            console.log(error);
+            console.log(error.details[0].message);
             return res.status(400).json({ message: error.details[0].message})
         }
         next();

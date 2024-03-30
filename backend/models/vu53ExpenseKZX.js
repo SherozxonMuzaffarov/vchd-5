@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
 
-const vu53ExpenseSchema = new mongoose.Schema({
-    vagonType: {
-        type: String,
-        enum: ['Vu53KZX', 'Vu53OTY', 'Vu53SOB'],
-        required: true
-    },
-    vagon: {
+const vu53ExpenseKZXSchema = new mongoose.Schema({
+    
+    vu53: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        refPath: 'vagonType'
+        ref: 'Vu53KZX'
+    },
+    vu53_status: {
+        type: String,
+        enum: ['КЗХ'],
+        required: true
     },
     register_time :{
+        type: String,
+        required: true,
+    },
+    used_place:{
         type: String,
         required: true,
     },
@@ -66,7 +71,7 @@ const vu53ExpenseSchema = new mongoose.Schema({
     distance: {
         type: Number,
     },
-    with_rurning: {
+    with_turning: {
         type: String
     },
     without_turning: {
@@ -82,6 +87,6 @@ const vu53ExpenseSchema = new mongoose.Schema({
     timestamps:true
 });
 
-const Vu53ExpenseModel = mongoose.model('Vu53Expense', vu53ExpenseSchema);
+const Vu53ExpenseKZXModel = mongoose.model('Vu53ExpenseKZX', vu53ExpenseKZXSchema);
 
-module.exports = Vu53ExpenseModel;
+module.exports = Vu53ExpenseKZXModel;

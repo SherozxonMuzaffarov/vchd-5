@@ -61,6 +61,10 @@ const vu53SOBSchema = new mongoose.Schema({
     is_used: {
         type: Boolean,
         default: false
+    },
+    expense: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vu53ExpenseSOB',
     }
 },{
     timestamps:true

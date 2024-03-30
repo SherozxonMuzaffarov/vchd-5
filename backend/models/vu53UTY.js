@@ -64,7 +64,7 @@ const vu53UTYSchema = new mongoose.Schema({
     }, 
     expense: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vu53Expense',
+        ref: 'Vu53ExpenseUTY',
     }
 },{
     timestamps:true

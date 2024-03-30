@@ -44,6 +44,10 @@ const router = createRouter({
               component: () => import('../views/gildirakSexi/VU-53.vue')
             },
             {
+              path: 'vu-53-expense/:id/:status',
+              component: () => import('../views/gildirakSexi/VU-53Expense.vue')
+            },
+            {
               path: 'vu-90',
               component: () => import('../views/gildirakSexi/VU-90.vue')
             },
