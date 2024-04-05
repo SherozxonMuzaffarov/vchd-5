@@ -61,7 +61,6 @@
 
         <div class="row">
 
-            {{ expenseFormData }}
             <BTableSimple striped="true" hover="true" bordered="true" class="mt-4">
                 <BThead >
                     <BTr >
@@ -122,7 +121,6 @@
                         <BTd>{{ Data?.expense?.without_turning }}</BTd>
                         <BTd>{{ Data?.expense?.other_works }}</BTd>
                         <BTd>{{ Data?.expense?.full_examination_date }}</BTd>
-                        
                     </BTr>
                     <BTr v-else>
                         <BTd><BFormInput v-model="expenseFormData.register_time" class="m-0"/></BTd>

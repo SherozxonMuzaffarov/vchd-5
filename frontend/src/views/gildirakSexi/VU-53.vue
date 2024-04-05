@@ -1,8 +1,7 @@
 <template>
     <main>
-        
-        <h5>ВУ-53</h5>
-    
+        <h3>Журнал</h3>
+        <h4> оборота и ремонта колёсных пар</h4>
         <!-- Filter -->
         <div class="row mt-5">
         <div class="col-12">
@@ -80,7 +79,14 @@
                                     </template>
                                 </BFormSelect>
                             </BTd>
-                            <BTd><BFormInput v-model="formData.type" /></BTd>
+                            <BTd>
+                                <BFormSelect v-model="formData.type" :options="vu53Types" >
+                                    <template #first>
+                                    <BFormSelectOption :value="null" disabled>--Vagon nomer --</BFormSelectOption>
+                                    </template>
+                                </BFormSelect>
+                            </BTd>
+                            <!-- <BTd><BFormInput v-model="formData.type" /></BTd> -->
                             <BTd><BFormInput v-model="formData.number" /></BTd>
                             <BTd><BFormInput v-model="formData.defective" /></BTd>
                             <BTd><BFormInput v-model="formData.os_year" /></BTd>
@@ -129,6 +135,10 @@ import axios from 'axios';
 const addToggle = ref(false)
 const Data = ref([])
 const vagons = ref([])
+const vu53Types = [
+  {text: 'РУ1', value: 'РУ1'},
+  {text: 'РУ1Ш', value: 'РУ1Ш'}
+]
 
 const formData = ref({
     register_number: '',

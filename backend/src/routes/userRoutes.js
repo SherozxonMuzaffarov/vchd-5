@@ -8,8 +8,8 @@ router.get('/all', authMiddleware, userController.getAll)
 router.get('/one/:id', authMiddleware, userController.getOne)
 router.get('/userID', authMiddleware, userController.getUserId)
 router.get('/identify-user', authMiddleware, userController.identifyUser)
-router.post('/create', authMiddleware, validations.validate, userController.create)
-router.patch('/update/:id', authMiddleware, validations.validate, userController.update)
+router.post('/create', authMiddleware, validations.user, userController.create)
+router.patch('/update/:id', authMiddleware, validations.user, userController.update)
 router.delete('/delete/:id', authMiddleware, userController.delete)
 
 module.exports = router;

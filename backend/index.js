@@ -16,17 +16,25 @@ app.use(cookieParser());
 //Import and use routes
 const authRoutes = require('./src/routes/authRoutes')
 const userRoutes = require('./src/routes/userRoutes')
+const employeeRoutes = require('./src/routes/employeeRoutes')
 const ownerRoutes = require('./src/routes/ownerRoute')
 const ownerCompanyRoutes = require('./src/routes/ownerCompanyRoute')
 const vagonRoutes = require('./src/routes/vagonRoute')
 const vu53Routes = require('./src/routes/vu53Route')
+const vu91Routes = require('./src/routes/vu91Route')
+const vu93Routes = require('./src/routes/vu93Route')
+const naplavkaRoutes = require('./src/routes/naplavkaRoute')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/employee', employeeRoutes)
 app.use('/api/owner', ownerRoutes)
 app.use('/api/owner-company', ownerCompanyRoutes)
 app.use('/api/vagon', vagonRoutes)
 app.use('/api/gildirak-sexi/vu-53', vu53Routes)
+app.use('/api/gildirak-sexi/vu-91', vu91Routes)
+app.use('/api/gildirak-sexi/vu-93', vu93Routes)
+app.use('/api/gildirak-sexi/naplavka', naplavkaRoutes)
 
 app.use((req, res, next) => {
   res.setHeader(

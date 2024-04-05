@@ -18,12 +18,14 @@
 					<span class="text">Home</span>
 				</router-link>
 
+				<!-- vagon-nazorat -->
 				<router-link to="/vagon-nazorat"  class="button" @click="toggleVagonDropdown">
 					<span class="material-icons">train</span>
 					<span class="text">Вагон назорат</span>
 					<span class="material-icons dropdown-icon" :class="{ 'rotate': vagonDropdownOpen }">expand_more</span>
 				</router-link>
 
+				<!-- vagon-nazorat-Dropdown -->
 				<div v-show="vagonDropdownOpen">
 					<router-link to="/vagon-nazorat/remain" class="button sub-button" >
 						<span class="material-icons">star</span>
@@ -46,33 +48,44 @@
 						<span class="text">Вагон фирма эгаси </span>
 					</router-link>
 				</div>
+				<!-- /vagon-nazorat -->
 
+				<!-- Ғилдирак сехи -->
 				<router-link to="/gildirak-sexi"  class="button" @click="toggleAboutDropdown">
 					<span class="material-icons">description</span>
 					<span class="text">Ғилдирак сехи</span>
 					<span class="material-icons dropdown-icon" :class="{ 'rotate': aboutDropdownOpen }">expand_more</span>
 				</router-link>
 
+				<!-- Ғилдирак сехи-Dropdown -->
 				<div v-show="aboutDropdownOpen">
 					<router-link to="/gildirak-sexi/vu-53" class="button sub-button" >
-						<!-- <span class="material-icons">star</span> -->
-						<span class="m-1"><i class="bi bi-5-circle"></i><i class="bi bi-3-circle"></i></span>
-						
-						<span class="text m-1">ВУ-53</span>
+						<i class="bi bi-5-circle"></i><i class="bi bi-3-circle"></i>
+						<span class="text m-2">ВУ-53</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/vu-90" class="button sub-button">
 						<span class="material-icons">star</span>
 						<span class="text">ВУ-90</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/vu-91" class="button sub-button">
-						<span class="material-icons">star</span>
-						<span class="text">ВУ-91</span>
+						<i class="bi bi-9-circle"></i><i class="bi bi-1-circle"></i>
+						<span class="text m-2">ВУ-91</span>
+					</router-link>
+					<router-link to="/gildirak-sexi/vu-93" class="button sub-button">
+						<i class="bi bi-9-circle"></i><i class="bi bi-3-circle"></i>
+						<span class="text m-2">ВУ-93</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/naplavka" class="button sub-button">
 						<span class="material-icons">star</span>
 						<span class="text">Наплавка</span>
 					</router-link>
+					<router-link to="/gildirak-sexi/employee" class="button sub-button">
+						<span class="material-icons">badge</span>
+						<span class="text">Ишчилар</span>
+					</router-link>
 				</div>
+				
+				<!-- /Ғилдирак сехи -->
 
 				<router-link to="/users" class="button">
 					<span class="material-icons">group</span>

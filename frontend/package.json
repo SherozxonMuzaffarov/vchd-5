@@ -11,6 +11,7 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.16.6",
+    "face-api.js": "^0.22.2",
     "pinia": "^2.1.7",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"

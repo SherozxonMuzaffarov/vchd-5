@@ -1,7 +1,9 @@
 <template>
     <main>
+        
         <h3>Журнал</h3>
-        <h4> осмотра роликовых подшипников и корпусов букс</h4>
+        <h4>Ремонта роликовых подшипников</h4>
+        
         <!-- Filter -->
         <div class="row mt-5">
         <div class="col-12">
@@ -34,13 +36,19 @@
                 <BTableSimple striped="true" hover="true" bordered="true" class="mt-4">
                     <BThead >
                         <BTr >
-                            <BTd >№</BTd>
-                            <BTd >Дата <br> осмотра </BTd>
-                            <BTd >Условное <br> обозначение <br> подшипника</BTd>
-                            <BTd >Завод-изготовитель и <br> год выпуска <br> подшипника</BTd>
-                            <BTd >Номер <br> подшипника</BTd>
-                            <BTd >Вид <br> неисправности</BTd>
-                            <BTd >Подпись лица <br> производившего <br> осмотр</BTd>
+                            <BTd rowspan="2">№</BTd>
+                            <BTd rowspan="2">Дата ремонта <br> подшипника </BTd>
+                            <BTd >Условное обозначение, номер <br> завода изготовления и дата</BTd>
+                            <BTd colspan="2">Вид</BTd>
+                            <BTd colspan="2">Подпись</BTd>
+                            
+                        </BTr>
+                        <BTr >
+                            <BTd >изготовления подшипника</BTd>
+                            <BTd >неисправности</BTd>
+                            <BTd >произведенного ремонта</BTd>
+                            <BTd >Лица, производившего <br> ремонт </BTd>
+                            <BTd >мастера</BTd>
                             
                         </BTr>
                     </BThead>
@@ -48,14 +56,20 @@
                         <BTr v-show="addToggle">
                             <BTd><BFormInput v-model="formData.register_number" /></BTd>
                             <BTd><BFormInput v-model="formData.register_time" /></BTd>
-                            <BTd><BFormInput v-model="formData.type" /></BTd>
                             <BTd><BFormInput v-model="formData.depoManifactured" /></BTd>
-                            <BTd><BFormInput v-model="formData.nomer" /></BTd>
                             <BTd><BFormInput v-model="formData.defect" /></BTd>
+                            <BTd><BFormInput v-model="formData.repairDone" /></BTd>
                             <BTd > 
-                                <BFormSelect v-model="formData.inspector" :options="employeeList" >
+                                <BFormSelect v-model="formData.repairman" :options="employeeList" >
                                     <template #first>
-                                    <BFormSelectOption :value="null" disabled>--лица производившего осмотр --</BFormSelectOption>
+                                    <BFormSelectOption :value="null" disabled>--Лица, производившего ремонт --</BFormSelectOption>
+                                    </template>
+                                </BFormSelect>
+                            </BTd>
+                            <BTd >
+                                <BFormSelect v-model="formData.master" :options="employeeList" >
+                                    <template #first>
+                                    <BFormSelectOption :value="null" disabled>--мастер --</BFormSelectOption>
                                     </template>
                                 </BFormSelect>
                             </BTd>
@@ -64,13 +78,17 @@
                         <BTr class="align-middle" v-for="item in Data" :key="item._id">
                             <BTd>{{ item?.register_number }}</BTd>
                             <BTd>{{ item?.register_time }}</BTd>
-                            <BTd>{{ item?.type }}</BTd>
                             <BTd >{{ item?.depoManifactured }}</BTd>
-                            <BTd>{{ item?.nomer }}</BTd>
                             <BTd>{{ item?.defect }}</BTd>
+                            <BTd>{{ item?.repairDone }}</BTd>
                             <BTd>
-                                {{ item?.inspector?.name }}
-                                 <span v-if="item?.is_inspector_sign"><i class="bi bi-check-circle-fill"></i></span>
+                                {{ item?.repairman?.name }}
+                                 <span v-if="item?.is_repairman_sign"><i class="bi bi-check-circle-fill"></i></span>
+                                 <span v-else><i class="bi bi-hourglass-split"></i></span>
+                            </BTd>
+                            <BTd>
+                                {{ item?.master?.name }}
+                                 <span v-if="item?.is_master_sign"><i class="bi bi-check-circle-fill"></i></span>
                                  <span v-else><i class="bi bi-hourglass-split"></i></span>
                             </BTd>
                             <BTd class="d-flex justify-content-center">
@@ -98,11 +116,11 @@ const employeeList = ref([])
 const formData = ref({
     register_number: '',
     register_time: '',
-    type: '',
     depoManifactured: '',
-    nomer: '',
     defect: '',
-    inspector: ''
+    repairDone: '',
+    repairman: '',
+    status: ''
 })
 
 const groupedOptions = [
@@ -124,7 +142,7 @@ const saveData = async() => {
         if (formData.value._id) {
             const isConfirmed = confirm("O'zgarishni Saqlamoqchimisiz?");
             if(isConfirmed) {
-                let res = await axios.patch("/api/gildirak-sexi/vu-91/update/" + formData.value._id, formData.value);
+                let res = await axios.patch("/api/gildirak-sexi/vu-93/update/" + formData.value._id, formData.value);
                 if (res.data) {
                     addToggle.value = !addToggle.value
                     makeFormNull();
@@ -134,7 +152,7 @@ const saveData = async() => {
         }else {
             const isConfirmed = confirm("Saqlamoqchimisiz");
             if(isConfirmed) {
-                let res = await axios.post("/api/gildirak-sexi/vu-91/create", formData.value);
+                let res = await axios.post("/api/gildirak-sexi/vu-93/create", formData.value);
                 if (res.data) {
                     addToggle.value = !addToggle.value
                     makeFormNull();
@@ -151,17 +169,18 @@ const saveData = async() => {
 const makeFormNull = () => {
     formData.value.register_number= null,
     formData.value.register_time= null,
-    formData.value.type= null,
     formData.value.depoManifactured= null,
-    formData.value.nomer= null,
     formData.value.defect= null,
-    formData.value.inspector= null
+    formData.value.repairDone= null,
+    formData.value.repairman= null,
+    formData.value.master= null,
+    formData.value.status= null
 }
 
 // getAllData
 const getAll = async() => {
     try {
-        let res = await axios.get(`/api/gildirak-sexi/vu-91/all?status=${encodeURIComponent(groupedSelected.value)}`);
+        let res = await axios.get(`/api/gildirak-sexi/vu-93/all?status=${encodeURIComponent(groupedSelected.value)}`);
         if (res.data) { 
             Data.value = res.data;
         }
@@ -173,7 +192,7 @@ const getAll = async() => {
 
 const getOne = async(id, status) => {
     try {
-        let res = await axios.get("/api/gildirak-sexi/vu-91/one/" + id  + '/' + status);
+        let res = await axios.get("/api/gildirak-sexi/vu-93/one/" + id  + '/' + status);
         if (res.data) {
             addData()
             formData.value = res.data;

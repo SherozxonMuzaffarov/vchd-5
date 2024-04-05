@@ -6,8 +6,8 @@ const validations = require("../validators/universalValidator");
 
 router.get('/all', authMiddleware, OwnerCompanyController.getAll)
 router.get('/one/:id', authMiddleware, OwnerCompanyController.getOne)
-router.post('/create', authMiddleware, validations.validate, OwnerCompanyController.create)
-router.patch('/update/:id', authMiddleware, validations.validate, OwnerCompanyController.update)
+router.post('/create', authMiddleware, validations.owner, OwnerCompanyController.create)
+router.patch('/update/:id', authMiddleware, validations.owner, OwnerCompanyController.update)
 router.delete('/delete/:id', authMiddleware, OwnerCompanyController.delete)
 
 module.exports = router;

@@ -56,8 +56,16 @@ const router = createRouter({
               component: () => import('../views/gildirakSexi/VU-91.vue')
             },
             {
+              path: 'vu-93',
+              component: () => import('../views/gildirakSexi/VU-93.vue')
+            },
+            {
               path: 'naplavka',
               component: () => import('../views/gildirakSexi/Naplavka.vue')
+            },
+            {
+              path: 'employee',
+              component: () => import('../views/gildirakSexi/Employee.vue')
             }
           ]
         },
