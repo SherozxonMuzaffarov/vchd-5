@@ -59,6 +59,10 @@
 
 				<!-- Ғилдирак сехи-Dropdown -->
 				<div v-show="aboutDropdownOpen">
+					<!-- <router-link to="/gildirak-sexi/vu-51" class="button sub-button" >
+						<i class="bi bi-5-circle"></i><i class="bi bi-1-circle"></i>
+						<span class="text m-2">ВУ-51</span>
+					</router-link> -->
 					<router-link to="/gildirak-sexi/vu-53" class="button sub-button" >
 						<i class="bi bi-5-circle"></i><i class="bi bi-3-circle"></i>
 						<span class="text m-2">ВУ-53</span>
@@ -70,6 +74,10 @@
 					<router-link to="/gildirak-sexi/vu-91" class="button sub-button">
 						<i class="bi bi-9-circle"></i><i class="bi bi-1-circle"></i>
 						<span class="text m-2">ВУ-91</span>
+					</router-link>
+					<router-link to="/gildirak-sexi/vu-92" class="button sub-button">
+						<i class="bi bi-9-circle"></i><i class="bi bi-2-circle"></i>
+						<span class="text m-2">ВУ-92</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/vu-93" class="button sub-button">
 						<i class="bi bi-9-circle"></i><i class="bi bi-3-circle"></i>

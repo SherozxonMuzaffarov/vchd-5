@@ -107,10 +107,10 @@ module.exports = {
 
     vu53Expense: (req, res, next) => {
         const schema = Joi.object({
-          // VU53
           // VU53 Expense
           vu53: Joi.required(),
           vu53_status: Joi.required(),
+          register_time: Joi.string().required(),
           used_place: Joi.string().required(),
           mediator: Joi.object({
               right: Joi.number().optional(),
@@ -137,9 +137,9 @@ module.exports = {
               left: Joi.number().optional()
           }).optional(),
           distance: Joi.number().optional(),
-          with_rurning: Joi.string().optional(),
-          without_turning: Joi.string().optional(),
-          otherWorks: Joi.string().optional(),
+          with_turning: Joi.optional(),
+          without_turning: Joi.optional(),
+          other_works: Joi.optional(),
           full_examination_date: Joi.string().optional(),
           
           createdAt: Joi.date().optional(),
@@ -255,7 +255,7 @@ module.exports = {
     
     vu91: (req, res, next) => {
         const schema = Joi.object({
-            // Vu93UTYModel
+            // Vu91
             register_number: Joi.number().required(),
             register_time: Joi.string().required(),
             type: Joi.string().required(),
@@ -267,6 +267,126 @@ module.exports = {
             inspector_sign_data: Joi.string().optional(),
             inspector_sign_type: Joi.string().optional(),
             status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            depo: Joi.string().valid('ВЧД-6'),
+           
+            createdAt: Joi.date().optional(),
+            updatedAt: Joi.date().optional(),
+            _id: Joi.optional(),
+            __v: Joi.optional(),
+            });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            console.log("Validation Error: " + error);
+            return res.status(400).json({ message: error.details[0].message})
+        }
+        next();
+    },
+    
+    vu92: (req, res, next) => {
+        const schema = Joi.object({
+            // Vu92
+            register_number: Joi.number(),
+            register_time: Joi.string().required(),
+            vagon_nomer: Joi.number().required(), 
+            vu53_register_number: Joi.string().required(), 
+            vu53_number: Joi.number().required(),
+            vu53_type: Joi.string().valid('РУ1', 'РУ1Ш').required(),
+            sostoyana: Joi.string().required(),
+            before_inspect: Joi.string().required(),
+            after_inspect: Joi.string().required(),
+            inspector: Joi.string().required(), 
+            is_inspector_sign: Joi.boolean().optional(),
+            inspector_sign_data: Joi.string().optional(),
+            inspector_sign_type: Joi.string().optional(),
+            master: Joi.string().required(), 
+            is_master_sign: Joi.boolean().optional(),
+            master_sign_data: Joi.string().optional(),
+            master_sign_type: Joi.string().optional(),
+
+            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            depo: Joi.string().valid('ВЧД-6'),
+           
+            createdAt: Joi.date().optional(),
+            updatedAt: Joi.date().optional(),
+            _id: Joi.optional(),
+            __v: Joi.optional(),
+            });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            console.log("Validation Error: " + error);
+            return res.status(400).json({ message: error.details[0].message})
+        }
+        next();
+    },
+    
+    vu90: (req, res, next) => {
+        const schema = Joi.object({
+            // Vu90
+            register_time: Joi.string(),
+            vu53_register_number: Joi.string(),
+            vu53_number: Joi.number(),
+            stamps: Joi.string(),
+            diameter_sheyka_right_d1: Joi.string(),
+            diameter_sheyka_Right_d11: Joi.string(),
+            diameter_sheyka_left_d1: Joi.string(),
+            diameter_sheyka_left_d11: Joi.string(),
+            diameter_sheyka_Right_d2: Joi.string(),
+            diameter_sheyka_Right_d22: Joi.string(),
+            diameter_sheyka_left_d2: Joi.string(),
+            diameter_sheyka_left_d22: Joi.string(),
+            diameter_sheyka_Right_d3: Joi.string(),
+            diameter_sheyka_Right_d33: Joi.string(),
+            diameter_sheyka_left_d3: Joi.string(),
+            diameter_sheyka_left_d33: Joi.string(),
+            greatest_ovality: Joi.string(),
+            greatest_taper: Joi.string(),
+            posad_diameter_kolsa_right: Joi.string(),
+            posad_diameter_kolsa_left: Joi.string(),
+            preload_kolsa_right: Joi.string(),
+            preload_kolsa_left: Joi.string(),
+            radial_gap_right_rear: Joi.string(),
+            radial_gap_right_front: Joi.string(),
+            radial_gap_left_rear: Joi.string(),
+            radial_gap_left_front: Joi.string(),
+            posad_diameter_buks_right_D1: Joi.string(),
+            posad_diameter_buks_right_D11: Joi.string(),
+            posad_diameter_buks_left_D1: Joi.string(),
+            posad_diameter_buks_left_D11: Joi.string(),
+            posad_diameter_buks_right_D2: Joi.string(),
+            posad_diameter_buks_right_D22: Joi.string(),
+            posad_diameter_buks_left_D2: Joi.string(),
+            posad_diameter_buks_left_D22: Joi.string(),
+            manufacturer_right_rear: Joi.number(),
+            design_right_rear: Joi.string(),
+            manufacturer_left_rear: Joi.number(),
+            design_right_left_rear: Joi.string(),
+            manufacturer_right_front: Joi.number(),
+            design_right_front: Joi.string(),
+            manufacturer_left_front: Joi.number(),
+            design_right_left_front: Joi.string(),
+            output_vtuki_right_1: Joi.number(),
+            output_vtuki_right_2: Joi.number(),
+            output_vtuki_left_1: Joi.number(),
+            output_vtuki_left_2: Joi.number(),
+            internal_diameter_kolsa_right_1: Joi.number(),
+            internal_diameter_kolsa_right_2: Joi.number(),
+            internal_diameter_kolsa_left_1: Joi.number(),
+            internal_diameter_kolsa_left_2: Joi.number(),
+            internal_preload_kolsa_right_1: Joi.number(),
+            internal_preload_kolsa_right_2: Joi.number(),
+            internal_preload_kolsa_left_1: Joi.number(),
+            internal_preload_kolsa_left_2: Joi.number(),
+            lzsni: Joi.number(),
+            inspector: Joi.string(),
+            is_inspector_sign: Joi.boolean(),
+            inspector_sign_data: Joi.string(),
+            inspector_sign_type: Joi.string(),
+            master: Joi.string(),
+            is_master_sign: Joi.boolean(),
+            master_sign_data: Joi.string(),
+            master_sign_type: Joi.string(),
+
+            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),

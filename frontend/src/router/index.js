@@ -40,6 +40,10 @@ const router = createRouter({
           component: () => import('../views/gildirakSexi/Home.vue'),
           children: [
             {
+              path: 'vu-51',
+              component: () => import('../views/gildirakSexi/VU-51.vue')
+            },
+            {
               path: 'vu-53',
               component: () => import('../views/gildirakSexi/VU-53.vue')
             },
@@ -54,6 +58,10 @@ const router = createRouter({
             {
               path: 'vu-91',
               component: () => import('../views/gildirakSexi/VU-91.vue')
+            },
+            {
+              path: 'vu-92',
+              component: () => import('../views/gildirakSexi/VU-92.vue')
             },
             {
               path: 'vu-93',
@@ -83,7 +91,7 @@ const router = createRouter({
       path: '/login',
       component: () => import('../views/Login.vue'),
       meta: {
-        hideSidebar: true // Setting meta property to hide sidebar on the login page
+        hideSidebar: true 
       }
     }
   ]
