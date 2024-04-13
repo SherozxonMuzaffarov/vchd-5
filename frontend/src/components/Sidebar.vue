@@ -92,8 +92,35 @@
 						<span class="text">Ишчилар</span>
 					</router-link>
 				</div>
-				
 				<!-- /Ғилдирак сехи -->
+
+
+				<!-- Telejka сехи -->
+				<router-link to="/telejka-sexi"  class="button" @click="toggleTelejkaDropdown">
+					<span class="material-icons">description</span>
+					<span class="text">Тележка сехи</span>
+					<span class="material-icons dropdown-icon" :class="{ 'rotate': telejkaDropdownOpen }">expand_more</span>
+				</router-link>
+				<!-- / Telejka сехи -->
+
+					<!-- Telejka сехи-Dropdown -->
+				<div v-show="telejkaDropdownOpen">
+					<router-link to="/telejka-sexi/telejka-prujinalarini-sinovdan-otkazishni-hisobga-olish" class="button sub-button" >
+						<span class="material-icons">star</span>
+						<span class="text m-2">Пружиналар синови</span>
+					</router-link>
+					<router-link to="/telejka-sexi/по-учёта-ремонта-и-испитанию-распорных-тяга-тележек-грузовых-вагонов" class="button sub-button" >
+						<span class="material-icons">star</span>
+						<span class="text m-2">Распорных тяга</span>
+					</router-link>
+					
+					<router-link to="/telejka-sexi/employee" class="button sub-button">
+						<span class="material-icons">badge</span>
+						<span class="text">Ишчилар</span>
+					</router-link>
+				</div>
+				<!-- /Telejka сехи-Dropdown -->
+
 
 				<router-link to="/users" class="button">
 					<span class="material-icons">group</span>
@@ -126,6 +153,7 @@ import logoURL from '../assets/logo.jpg'
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 const vagonDropdownOpen = ref(false)
 const aboutDropdownOpen = ref(false)
+const telejkaDropdownOpen = ref(false)
 
 const toggleVagonDropdown = () => {
 	vagonDropdownOpen.value = !vagonDropdownOpen.value
@@ -133,6 +161,10 @@ const toggleVagonDropdown = () => {
 
 const toggleAboutDropdown = () => {
   aboutDropdownOpen.value = !aboutDropdownOpen.value
+}
+
+const toggleTelejkaDropdown = () => {
+	telejkaDropdownOpen.value = !telejkaDropdownOpen.value
 }
 
 const ToggleMenu = () => {

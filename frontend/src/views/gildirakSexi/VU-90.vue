@@ -21,7 +21,7 @@
                         <template #first>
                         <BFormSelectOption :value="null" disabled >-- vagon turi --</BFormSelectOption >
                         </template>
-                    </BFormSelect>
+                    </BFormSelect> 
                 </div>
                 <div class="col-4">
                     <label for="nomer" class="form-label">№ по порядку</label>

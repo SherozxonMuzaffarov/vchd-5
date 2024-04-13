@@ -78,6 +78,26 @@ const router = createRouter({
           ]
         },
         {
+          path: '/telejka-sexi',
+          redirect: {path: '/telejka-sexi/telejka-prujinalarini-sinovdan-otkazishni-hisobga-olish'},
+          component: () => import('../views/telejakSexi/Home.vue'),
+          children: [
+            {
+              path: 'telejka-prujinalarini-sinovdan-otkazishni-hisobga-olish',
+              component: () => import('../views/telejakSexi/TelejkaPrujinalariSinovi.vue')
+            },
+            {
+              path: 'по-учёта-ремонта-и-испитанию-распорных-тяга-тележек-грузовых-вагонов',
+              component: () => import('../views/telejakSexi/RaspornixTyaga.vue')
+            },
+            
+            {
+              path: 'employee',
+              component: () => import('../views/telejakSexi/Employee.vue')
+            }
+          ]
+        },
+        {
           path: 'users',
           component: () => import('../views/User.vue'),
         },

@@ -401,5 +401,69 @@ module.exports = {
         }
         next();
     },
+
+    prujina: (req, res, next) => {
+        const schema = Joi.object({
+            // Prujina
+            register_time: Joi.string().required(),
+            external_quantity: Joi.number().required(),
+            external_rejected: Joi.number().required(),
+            internal_quantity: Joi.number().required(),
+            internal_rejected: Joi.number().required(),
+            inspector: Joi.string().required(),
+            is_inspector_sign: Joi.boolean(),
+            inspector_sign_data: Joi.string(),
+            inspector_sign_type: Joi.string(),
+            brigader: Joi.string().required(),
+            is_brigader_sign: Joi.boolean(),
+            brigader_sign_data: Joi.string(),
+            brigader_sign_type: Joi.string(),
+
+            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            depo: Joi.string().valid('ВЧД-6'),
+           
+            createdAt: Joi.date().optional(),
+            updatedAt: Joi.date().optional(),
+            _id: Joi.optional(),
+            __v: Joi.optional(),
+            });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            console.log("Validation Error: " + error);
+            return res.status(400).json({ message: error.details[0].message})
+        }
+        next();
+    },
+
+    tyaga: (req, res, next) => {
+        const schema = Joi.object({
+            // Prujina
+            register_time: Joi.string().required(),
+            quantity: Joi.number().required(),
+            godnost: Joi.string().valid('годен').required(),
+            inspector: Joi.string().required(),
+            is_inspector_sign: Joi.boolean(),
+            inspector_sign_data: Joi.string(),
+            inspector_sign_type: Joi.string(),
+            brigader: Joi.string().required(),
+            is_brigader_sign: Joi.boolean(),
+            brigader_sign_data: Joi.string(),
+            brigader_sign_type: Joi.string(),
+
+            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            depo: Joi.string().valid('ВЧД-6'),
+           
+            createdAt: Joi.date().optional(),
+            updatedAt: Joi.date().optional(),
+            _id: Joi.optional(),
+            __v: Joi.optional(),
+            });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            console.log("Validation Error: " + error);
+            return res.status(400).json({ message: error.details[0].message})
+        }
+        next();
+    },
     
 }
