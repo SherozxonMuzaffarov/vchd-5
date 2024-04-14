@@ -30,9 +30,6 @@
         </div>
         </div>
 
-        formData: {{ formData }}
-        <br>
-        Data: {{ Data }}
          <!-- List -->
         <div class="mt-5">
             <div class="card shadow-sm" style="overflow: auto; white-space: nowrap">
@@ -108,8 +105,8 @@
                             <BTd>{{ item?.after_inspect }}</BTd>
                             <BTd>
                                 {{ item?.inspector?.name }}
-                                 <span v-if="item?.is_inspector_sign"><i class="bi bi-check-circle-fill"></i></span>
-                                 <span v-else><i class="bi bi-hourglass-split"></i></span>
+                                 <span v-if="item?.is_inspector_sign" class="text-red"><i class="bi bi-check-circle-fill"></i></span>
+                                 <span v-else class="text-red"><i class="bi bi-hourglass-split"></i></span>
                             </BTd>
                             <BTd>
                                 {{ item?.master?.name }}
@@ -127,7 +124,6 @@
                 </div>
             </div>
         </div>
-        {{ vu53s }}
     </main>
 </template>
 

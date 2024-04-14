@@ -47,9 +47,11 @@ app.use('/api/gildirak-sexi/naplavka', naplavkaRoutes)
 // Telejka sexi
 const prujinaRoutes = require('./src/routes/telejka/prujinaRoute')
 const tyagaRoutes = require('./src/routes/telejka/tyagaRoute')
+const triangelRoutes = require('./src/routes/telejka/triangelRoute')
 
 app.use('/api/telejka-sexi/prujina', prujinaRoutes)
 app.use('/api/telejka-sexi/tyaga', tyagaRoutes)
+app.use('/api/telejka-sexi/triangel', triangelRoutes)
 
 app.use((req, res, next) => {
   res.setHeader(

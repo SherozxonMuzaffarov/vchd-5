@@ -68,7 +68,8 @@
 						<span class="text m-2">ВУ-53</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/vu-90" class="button sub-button">
-						<span class="material-icons">star</span>
+						<!-- <span class="material-icons">star</span> -->
+						<i class="bi bi-9-circle"></i><i class="bi bi-0-circle"></i>
 						<span class="text">ВУ-90</span>
 					</router-link>
 					<router-link to="/gildirak-sexi/vu-91" class="button sub-button">
@@ -112,6 +113,10 @@
 					<router-link to="/telejka-sexi/по-учёта-ремонта-и-испитанию-распорных-тяга-тележек-грузовых-вагонов" class="button sub-button" >
 						<span class="material-icons">star</span>
 						<span class="text m-2">Распорных тяга</span>
+					</router-link>
+					<router-link to="/telejka-sexi/триангелларни-таьмирлаш-ва-синовдан-ўтказиш" class="button sub-button" >
+						<span class="material-icons">star</span>
+						<span class="text m-2">Триангеллар</span>
 					</router-link>
 					
 					<router-link to="/telejka-sexi/employee" class="button sub-button">

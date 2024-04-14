@@ -260,8 +260,8 @@ const getAll = async() => {
     try {
         let res = await axios.get(`/api/gildirak-sexi/vu-53/all?status=${encodeURIComponent(groupedSelected.value)}`);
         if (res.data) { 
-            Data.value = res.data;
-            sampleData.value = res.data.find(item => item.register_number == 1008)
+            Data.value = null;
+            sampleData.value = null
         }
 
     } catch (error) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid w-100">
     <div class="d-flex align-items-center column-gap-2">
       <p class="lead m-0"><i class="bi bi-house-door-fill"></i>Ta'mirlangan vagonlar</p>
     </div>

@@ -90,6 +90,10 @@ const router = createRouter({
               path: 'по-учёта-ремонта-и-испитанию-распорных-тяга-тележек-грузовых-вагонов',
               component: () => import('../views/telejakSexi/RaspornixTyaga.vue')
             },
+            {
+              path: 'триангелларни-таьмирлаш-ва-синовдан-ўтказиш',
+              component: () => import('../views/telejakSexi/Triangel.vue')
+            },
             
             {
               path: 'employee',

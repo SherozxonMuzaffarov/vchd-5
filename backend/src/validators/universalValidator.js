@@ -465,5 +465,36 @@ module.exports = {
         }
         next();
     },
+
+    triangel: (req, res, next) => {
+        const schema = Joi.object({
+            // Triangel
+            register_time: Joi.string().required(),
+            vagon_nomer: Joi.string().required(), 
+            size: Joi.string(),
+            deformation: Joi.string(),
+            difference: Joi.string(),
+            internal_edges_distance: Joi.string(),
+            external_edges_distance: Joi.string(),
+            inspector: Joi.string().required(), 
+            is_inspector_sign: Joi.boolean(),
+            inspector_sign_data: Joi.string(),
+            inspector_sign_type: Joi.string(),
+            
+            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            depo: Joi.string().valid('ВЧД-6'),
+           
+            createdAt: Joi.date().optional(),
+            updatedAt: Joi.date().optional(),
+            _id: Joi.optional(),
+            __v: Joi.optional(),
+            });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            console.log("Validation Error: " + error);
+            return res.status(400).json({ message: error.details[0].message})
+        }
+        next();
+    },
     
 }

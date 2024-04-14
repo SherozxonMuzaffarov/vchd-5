@@ -1,8 +1,7 @@
 <template>
     <main>
         <h3>Журнал</h3>
-        <h4>По учёта ремонта и испитанию распорных тяга тележек грузовых вагонов</h4>
-        <!-- <h4>Тележка пружиналарини синовдан ўтказишни ҳисобга олиш</h4> -->
+        <h4>Триангелларни таьмирлаш ва синовдан ўтказиш</h4>
         <!-- Filter -->
         <div class="row mt-5">
         <div class="col-12">
@@ -35,36 +34,40 @@
                 <div class="card-body">
                 <BTableSimple striped="true" hover="true" bordered="true" class="mt-4">
                     <BThead >
-                        <BTr >
-                            <BTd >Дата <br> испитания</BTd>
-                            <BTd >Колечество <br> испытываемых <br> деталей</BTd>
-                            <BTd >Годность</BTd>
-                            <BTd >Фамилия и <br> подпись слесаря <br> производившего <br> испитание</BTd>
-                            <BTd >Фамилия и подпись <br> бригадира или <br> мастера</BTd>
+                        <BTr>
+                            <BTd rowspan="2">Дата <br> испитания</BTd>
+                            <BTd rowspan="2" >Номер вагона </BTd>
+                            <BTd colspan="2" >Величина</BTd>
+                            <BTd rowspan="2">Разность <br> испытания <br> от наружной <br> поверхност <br> и до оси </BTd>
+                            <BTd colspan="2" >Расстояние</BTd>
+                            <BTd  rowspan="2">Подпись <br> ответственного <br> лица</BTd>
+                        </BTr>
+                        <BTr>
+                            <BTd>испытания</BTd>
+                            <BTd>остаточной <br> деформатции</BTd>
+                            <BTd>,,, внутренними <br> гранями</BTd>
+                            <BTd>,,, наружной <br> гранями</BTd>
                         </BTr>
                     </BThead>
                     <BTbody>
                         <BTr v-show="addToggle"> 
                             <BTd><BFormInput v-model="formData.register_time" /></BTd>
-                            <BTd><BFormInput v-model="formData.quantity" /></BTd>
                             <BTd>
-                                <BFormSelect v-model="formData.godnost" :options="godnosts" >
+                                <BFormSelect v-model="formData.vagon_nomer" :options="vagons" >
                                     <template #first>
-                                    <BFormSelectOption :value="null" disabled>--годность--</BFormSelectOption>
+                                        <BFormSelectOption :value="null" disabled>--номер вагона --</BFormSelectOption>
                                     </template>
                                 </BFormSelect>
                             </BTd>
+                            <BTd><BFormInput v-model="formData.size" /></BTd>
+                            <BTd><BFormInput v-model="formData.deformation" /></BTd>
+                            <BTd><BFormInput v-model="formData.difference" /></BTd>
+                            <BTd><BFormInput v-model="formData.internal_edges_distance" /></BTd>
+                            <BTd><BFormInput v-model="formData.external_edges_distance" /></BTd>
                             <BTd>
                                 <BFormSelect v-model="formData.inspector" :options="employeeList" >
                                     <template #first>
-                                    <BFormSelectOption :value="null" disabled>--слесаря--</BFormSelectOption>
-                                    </template>
-                                </BFormSelect>
-                            </BTd>
-                            <BTd>
-                                <BFormSelect v-model="formData.brigader" :options="employeeList" >
-                                    <template #first>
-                                    <BFormSelectOption :value="null" disabled>--бригадира или мастера --</BFormSelectOption>
+                                        <BFormSelectOption :value="null" disabled>--ответственного лица --</BFormSelectOption>
                                     </template>
                                 </BFormSelect>
                             </BTd>
@@ -73,10 +76,13 @@
                         </BTr>
                         <BTr class="align-middle" v-for="item in Data" :key="item._id">
                             <BTd>{{ item?.register_time }}</BTd>
-                            <BTd >{{ item?.quantity }}</BTd>
-                            <BTd>{{ item?.godnost}}</BTd>
+                            <BTd >{{ item?.vagon_nomer?.nomer }}</BTd>
+                            <BTd>{{ item?.size}}</BTd>
+                            <BTd>{{ item?.deformation}}</BTd>
+                            <BTd>{{ item?.difference}}</BTd>
+                            <BTd>{{ item?.internal_edges_distance}}</BTd>
+                            <BTd>{{ item?.external_edges_distance}}</BTd>
                             <BTd>{{ item?.inspector?.name }}</BTd>
-                            <BTd>{{ item?.brigader?.name }}</BTd>
                             
                             <BTd class="d-flex justify-content-center">
                                 <button class="btn btn-primary" @click="getOne(item._id, item.status)">
@@ -99,19 +105,20 @@ import axios from 'axios';
 const addToggle = ref(false)
 const Data = ref([])
 const employeeList = ref([])
+const vagons = ref([])
 
 const formData = ref({
     register_time: '',
-    quantity: '',
-    godnost: '',
+    vagon_nomer: '',
+    size: '',
+    deformation: '',
+    difference: '',
+    internal_edges_distance: '',
+    external_edges_distance: '',
     inspector: '',
-    brigader: '',
     status: '',
 })
 
-const godnosts = [
-  {text: 'годен', value: 'годен'},
-]
 const groupedOptions = [
   {text: 'ЎТЙ', value: 'ЎТЙ'},
   {text: 'КЗХ', value: 'КЗХ'},
@@ -130,7 +137,7 @@ const saveData = async() => {
         if (formData.value._id) {
             const isConfirmed = confirm("O'zgarishni Saqlamoqchimisiz?");
             if(isConfirmed) {
-                let res = await axios.patch("/api/telejka-sexi/tyaga/update/" + formData.value._id, formData.value);
+                let res = await axios.patch("/api/telejka-sexi/triangel/update/" + formData.value._id, formData.value);
                 if (res.data) {
                     addToggle.value = !addToggle.value
                     makeFormNull();
@@ -140,7 +147,7 @@ const saveData = async() => {
         }else {
             const isConfirmed = confirm("Saqlamoqchimisiz");
             if(isConfirmed) {
-                let res = await axios.post("/api/telejka-sexi/tyaga/create", formData.value);
+                let res = await axios.post("/api/telejka-sexi/triangel/create", formData.value);
                 if (res.data) {
                     addToggle.value = !addToggle.value
                     makeFormNull();
@@ -156,17 +163,20 @@ const saveData = async() => {
 
 const makeFormNull = () => {
     formData.value.register_time= null,
-    formData.value.quantity= null,
-    formData.value.godnost= null,
+    formData.value.vagon_nomer= null,
+    formData.value.size= null,
+    formData.value.deformation= null,
+    formData.value.difference= null,
+    formData.value.internal_edges_distance= null,
+    formData.value.external_edges_distance= null,
     formData.value.inspector= null,
-    formData.value.brigader= null,
     formData.value.status= null
 }
 
 // getAllData
 const getAll = async() => {
     try {
-        let res = await axios.get(`/api/telejka-sexi/tyaga/all?status=${encodeURIComponent(groupedSelected.value)}`);
+        let res = await axios.get(`/api/telejka-sexi/triangel/all?status=${encodeURIComponent(groupedSelected.value)}`);
         if (res.data) { 
             Data.value = res.data;
         }
@@ -178,7 +188,7 @@ const getAll = async() => {
 
 const getOne = async(id, status) => {
     try {
-        let res = await axios.get("/api/telejka-sexi/tyaga/one/" + id  + '/' + status);
+        let res = await axios.get("/api/telejka-sexi/triangel/one/" + id  + '/' + status);
         if (res.data) {
             addData()
             formData.value = res.data;
@@ -202,11 +212,26 @@ const allEmployee = async() => {
   }
 }
 
+// allRepairingVagons
+const allRepairingVagons = async() => {
+    try {
+    let res = await axios.get("/api/vagon/repairing-vagons");
+    if (res.data) {
+        vagons.value = res.data.map(function (item) {
+            return { text: item.nomer, value: item._id };
+        });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 onMounted(() => {
     groupedSelected.value = 'ЎТЙ';
     formData.value.status = groupedSelected.value;
     getAll();
     allEmployee();
+    allRepairingVagons();
 });
 
 watch((groupedSelected.value)  =()=> {
