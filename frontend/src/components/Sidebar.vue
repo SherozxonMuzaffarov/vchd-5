@@ -11,6 +11,8 @@
 				</button>
 			</div>
 
+			currentUser: {{ currentUser.role }}
+
 			<h3>Menu</h3>
 			<div class="menu">
 				<router-link to="/" class="button">
@@ -150,11 +152,12 @@
 <script setup>
 import { ref } from 'vue'
 import logoURL from '../assets/logo.jpg'
-// import { watch } from 'vue'
+import { watch } from 'vue'
 // import { useRoute } from 'vue-router'
 
 // const route = useRoute()
 
+const currentUser = ref({})
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 const vagonDropdownOpen = ref(false)
 const aboutDropdownOpen = ref(false)
@@ -177,11 +180,17 @@ const ToggleMenu = () => {
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
 
-// watch(() => route.path, () => {
-//     // Close the dropdowns when the route changes
-//     vagonDropdownOpen.value = false
-//     aboutDropdownOpen.value = false
-// })
+
+watch(() => {
+
+	currentUser.value =JSON.parse( localStorage.getItem("userData"));
+            // if (res.data.user.role  ===  "g'ildirakSexi") {
+            //     router.push({ path: "/gildirak-sexi" });
+            // } else if (res.data.user.role  ===  "telejkaSexi") {
+            //     router.push({ path: "/telejka-sexi" });
+                
+            // }
+})
 </script>
 
 <style lang="scss" scoped>

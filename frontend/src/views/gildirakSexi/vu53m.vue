@@ -98,17 +98,17 @@
                             <BTd><BButton variant="outline-primary" @click="saveData"><i class="bi bi-floppy"></i></BButton></BTd>
                         </BTr>
                         <BTr class="align-middle" v-for="item in Data" :key="item._id">
-                            <BTd>{{ updatedItem(item).register_number }}</BTd>
-                            <BTd>{{ updatedItem(item).register_time }}</BTd>
-                            <BTd>{{ updatedItem(item).vagon?.nomer }}</BTd>
-                            <BTd>{{ updatedItem(item).type }}</BTd>
-                            <BTd>{{ updatedItem(item).number }}</BTd>
-                            <BTd>{{ updatedItem(item).defective }}</BTd>
-                            <BTd>{{ updatedItem(item).os_year }}</BTd>
-                            <BTd>{{ updatedItem(item).last_repair }}</BTd>
-                            <BTd>{{ updatedItem(item).buksa }}</BTd>
-                            <BTd>{{ updatedItem(item).diameter?.right }}</BTd>
-                            <BTd>{{ updatedItem(item).diameter?.left }}</BTd>
+                            <BTd>{{ item?.register_number }}</BTd>
+                            <BTd>{{ item?.register_time }}</BTd>
+                            <BTd >{{ item?.vagon?.nomer }}</BTd>
+                            <BTd>{{ item?.type }}</BTd>
+                            <BTd>{{ item?.number }}</BTd>
+                            <BTd>{{ item?.defective}}</BTd>
+                            <BTd>{{ item?.os_year }}</BTd>
+                            <BTd>{{ item?.last_repair }}</BTd>
+                            <BTd>{{ item?.buksa}}</BTd>
+                            <BTd>{{ item?.diameter?.right }}</BTd>
+                            <BTd>{{ item?.diameter?.left }}</BTd>
                             <BTd class="d-flex justify-content-center">
                                 <button class="btn btn-primary" @click="getOne(item._id, item.status)">
                                     <i class="bi bi-pen-fill"></i>
@@ -118,9 +118,9 @@
                                     :class="{'btn': true, 'btn-success': item.is_used, 'btn-danger': !item.is_used}">
                                     <i class="bi bi-bell"></i>
                                 </button>
+
                             </BTd>
                         </BTr>
-
                     </BTbody>
                 </BTableSimple>
                 </div>
@@ -170,17 +170,6 @@ const addData = () => {
     formData.value.status = groupedSelected.value
     addToggle.value = !addToggle.value
 }
-
-const updatedItem = (item) => {
-    if (item.updates && item.updates.length > 0) {
-        // If there are updates, merge them into the original item
-        const updatedData = item.updates[0].updateDetails;
-        return { ...item, ...updatedData };
-    } else {
-        // If no updates, return the original item
-        return item;
-    }
-};
 
 const saveData = async() => {
     try {

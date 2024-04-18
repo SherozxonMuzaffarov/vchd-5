@@ -221,7 +221,7 @@ const vu90KZXSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['КЗХ'],
+        enum: ['СНГ'],
         required: true
     },
     depo: {

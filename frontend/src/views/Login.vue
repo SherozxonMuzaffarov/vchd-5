@@ -48,7 +48,12 @@ const submit = async () => {
         if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userData",JSON.stringify(res.data.user));
-            router.push({ path: "/gildirak-sexi" });
+            if (res.data.user.role  ===  "g'ildirakSexi") {
+                router.push({ path: "/gildirak-sexi" });
+            } else if (res.data.user.role  ===  "telejkaSexi") {
+                router.push({ path: "/telejka-sexi" });
+                
+            }
         }
     } catch (error) {
         console.log(error);

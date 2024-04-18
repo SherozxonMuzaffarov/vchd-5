@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const vu53UTYSchema = new mongoose.Schema({
+const vu53KZXSchema = new mongoose.Schema({
     register_number: {
         type: Number,
         required: true,
@@ -50,7 +50,7 @@ const vu53UTYSchema = new mongoose.Schema({
     }, 
     status: {
         type: String,
-        enum: ['ЎТЙ'],
+        enum: ['СНГ'],
         required: true
     },
     depo: {
@@ -64,12 +64,12 @@ const vu53UTYSchema = new mongoose.Schema({
     }, 
     expense: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vu53ExpenseUTY',
+        ref: 'Vu53ExpenseKZX',
     }
 },{
     timestamps:true
 });
 
-const Vu53UTYModel = mongoose.model('Vu53UTY', vu53UTYSchema);
+const Vu53KZXModel = mongoose.model('Vu53KZX', vu53KZXSchema);
 
-module.exports = Vu53UTYModel;
+module.exports = Vu53KZXModel;

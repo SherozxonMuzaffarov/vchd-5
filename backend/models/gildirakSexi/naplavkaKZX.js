@@ -8,7 +8,7 @@ const naplavkaKZXSchema = new mongoose.Schema({
     },
     vu53_status: {
         type: String,
-        enum: ['КЗХ'],
+        enum: ['СНГ'],
         required: true
     },
     register_time :{

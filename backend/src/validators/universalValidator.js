@@ -88,7 +88,7 @@ module.exports = {
               right: Joi.number().required(),
               left: Joi.number().required()
           }).required(),
-          status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+          status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ').required(),
           depo: Joi.string().valid('ВЧД-6'),
           is_used: Joi.boolean().default(false),
           
@@ -99,6 +99,7 @@ module.exports = {
     
         const { error } = schema.validate(req.body);
         if (error) {
+            console.log('Validation error: ' + error);
           return res.status(400).json({ message: error.details[0].message });
         }
     
@@ -193,7 +194,7 @@ module.exports = {
             // Naplavka
             _id: Joi.string().optional(),
             vu53_register_number: Joi.string().required(),
-            vu53_status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            vu53_status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ').required(),
             register_time: Joi.string().required(),
             vu53_number: Joi.number().required(),
             vu53_type: Joi.string().valid('РУ1', 'РУ1Ш').required(),
@@ -237,7 +238,7 @@ module.exports = {
             is_master_sign: Joi.boolean().optional(),
             master_sign_data: Joi.string().optional(),
             master_sign_type: Joi.string().optional(),
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ').required(),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -266,7 +267,7 @@ module.exports = {
             is_inspector_sign: Joi.boolean().optional(),
             inspector_sign_data: Joi.string().optional(),
             inspector_sign_type: Joi.string().optional(),
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ').required(),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -303,7 +304,7 @@ module.exports = {
             master_sign_data: Joi.string().optional(),
             master_sign_type: Joi.string().optional(),
 
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ').required(),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ').required(),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -386,7 +387,7 @@ module.exports = {
             master_sign_data: Joi.string(),
             master_sign_type: Joi.string(),
 
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ'),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -419,7 +420,7 @@ module.exports = {
             brigader_sign_data: Joi.string(),
             brigader_sign_type: Joi.string(),
 
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ'),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -450,7 +451,7 @@ module.exports = {
             brigader_sign_data: Joi.string(),
             brigader_sign_type: Joi.string(),
 
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ'),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),
@@ -481,7 +482,7 @@ module.exports = {
             inspector_sign_data: Joi.string(),
             inspector_sign_type: Joi.string(),
             
-            status: Joi.string().valid('ЎТЙ', 'КЗХ', 'СОБ'),
+            status: Joi.string().valid('ЎТЙ', 'СНГ', 'СОБ'),
             depo: Joi.string().valid('ВЧД-6'),
            
             createdAt: Joi.date().optional(),

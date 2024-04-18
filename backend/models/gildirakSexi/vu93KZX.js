@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const vu92KZXSchema = new mongoose.Schema({
+const vu93KZXSchema = new mongoose.Schema({
     register_number: {
         type: Number,
         required: true,
@@ -10,56 +10,34 @@ const vu92KZXSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    vagon_nomer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vagon',
-        required: true
-    },
-    vu53_register_number: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vu93KZX',
-        required: true
-    },
-    vu53_number: {
-        type: Number,
+    depoManifactured: {
+        type: String,
         required: true,
     },
-    vu53_type: {
+    defect: {
         type: String,
-        enum: ['РУ1', 'РУ1Ш'],
-        required: true
+        required: true,
     },
-    sostoyana: {
+    repairDone: {
         type: String,
-        required: true
+        required: true,
     },
-    before_inspect: {
-        type: String,
-        required: true
-    },
-    after_inspect: {
-        type: String,
-        required: true
-    },
-
-
-
-    inspector: {
+    repairman: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',
         required: true
     },
-    is_inspector_sign: {
+    is_repairman_sign: {
         type: Boolean,
         default: false
     },
-    inspector_sign_data :{
+    repairman_sign_data :{
         type: String
     },
-    inspector_sign_type :{
+    repairman_sign_type :{
         type: String
     },
-    
+
     master: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',
@@ -77,7 +55,7 @@ const vu92KZXSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['КЗХ'],
+        enum: ['СНГ'],
         required: true
     },
     depo: {
@@ -89,6 +67,6 @@ const vu92KZXSchema = new mongoose.Schema({
     timestamps:true
 });
 
-const Vu92KZXModel = mongoose.model('Vu92KZX', vu92KZXSchema);
+const Vu93KZXModel = mongoose.model('Vu93KZX', vu93KZXSchema);
 
-module.exports = Vu92KZXModel;
+module.exports = Vu93KZXModel;

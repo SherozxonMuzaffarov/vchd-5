@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const Vu53UTYModel = require('../../models/vu53UTY');
-const Vu53SOBModel = require('../../models/vu53SOB');
-const Vu53KZXModel = require('../../models/vu53KZX');
-const Vu53ExpenseUTYModel = require('../../models/vu53ExpenseUTY');
-const Vu53ExpenseSOBModel = require('../../models/vu53ExpenseSOB');
-const Vu53ExpenseKZXModel = require('../../models/vu53ExpenseKZX');
+const Vu53UTYModel = require('../../../models/gildirakSexi/vu53UTY');
+const Vu53SOBModel = require('../../../models/gildirakSexi/vu53SOB');
+const Vu53KZXModel = require('../../../models/gildirakSexi/vu53KZX');
+const Vu53ExpenseUTYModel = require('../../../models/gildirakSexi/vu53ExpenseUTY');
+const Vu53ExpenseSOBModel = require('../../../models/gildirakSexi/vu53ExpenseSOB');
+const Vu53ExpenseKZXModel = require('../../../models/gildirakSexi/vu53ExpenseKZX');
 
 module.exports = {
     create: async (req, res) => {
@@ -24,7 +24,7 @@ module.exports = {
                     depo: 'ВЧД-6',
                 });
                 res.json(model);
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 let model = await Vu53KZXModel.create({
                     ...req.body,
                     depo: 'ВЧД-6'
@@ -59,7 +59,7 @@ module.exports = {
                     {is_used: true, expense: createdModel._id},
                     { new: true }
                 );
-            } else if (vu53_status == 'КЗХ') {
+            } else if (vu53_status == 'СНГ') {
                 createdModel = await Vu53ExpenseKZXModel.create(req.body);
                 updatedModel = await Vu53KZXModel.findByIdAndUpdate(
                     {_id: req.body.vu53},
@@ -83,10 +83,20 @@ module.exports = {
         try {
             let model;
             if (status == 'ЎТЙ') {
-                model = await Vu53UTYModel.find({status}).populate('vagon', 'nomer').populate('expense').sort({ register_number: -1 });
+                model = await Vu53UTYModel
+                    .find({status})
+                    .populate('vagon', 'nomer')
+                    .populate('expense')
+                    .populate({
+                        path: 'updates.updatedBy', // Populate the updatedBy field within the updates array
+                        model: 'User', // Reference to the User model
+                        select: 'namr' // Select the fields you want to populate
+                    })
+                    
+                    .sort({ register_number: -1 });
             } else if (status == 'СОБ') {
                 model = await Vu53SOBModel.find({status}).populate('vagon', 'nomer').populate('expense').sort({ register_number: -1 });
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 model = await Vu53KZXModel.find({status}).populate('vagon', 'nomer').populate('expense').sort({ register_number: -1 });
             }
 
@@ -108,7 +118,7 @@ module.exports = {
                 model = await Vu53UTYModel.findById(id).populate('vagon', 'nomer')?.populate('expense');
             } else if (status == 'СОБ') {
                 model = await Vu53SOBModel.findById(id).populate('vagon', 'nomer')?.populate('expense');
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 model = await Vu53KZXModel.findById(id).populate('vagon', 'nomer')?.populate('expense');
             }
 
@@ -126,21 +136,34 @@ module.exports = {
         try {
             const { id } = req.params;
             const status = req.body.status 
+
+            // const { name, model, price } = req.body;
+            const updatedBy = "Admin"; // You can change this based on the logged-in user
+            const updateDetails = req.body;
            
             let updatedModel;
             if (status == 'ЎТЙ') {
-                updatedModel = await Vu53UTYModel.findByIdAndUpdate(
-                    id,
-                    req.body,
-                    { new: true }
+                const updatedModel = await Vu53UTYModel.findByIdAndUpdate(
+                    id, 
+                    {
+                         $push: { 
+                            updates: { updatedBy: req.user.id, updateDetails: req.body } 
+                        }, 
+                        approvalStatus: 'pending' 
+                    }, { new: true }
                 );
+                // updatedModel = await Vu53UTYModel.findByIdAndUpdate(
+                //     id,
+                //     req.body,
+                //     { new: true }
+                // );
             } else if (status == 'СОБ') {
                 updatedModel = await Vu53SOBModel.findByIdAndUpdate(
                     id,
                     req.body,
                     { new: true }
                 );
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 updatedModel = await Vu53KZXModel.findByIdAndUpdate(
                     id,
                     req.body,

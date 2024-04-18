@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middlewares/authMiddleware");
-const vu53Controller = require("../controllers/vu53Controller");
-const validations = require("../validators/universalValidator");
+const authMiddleware = require("../../middlewares/authMiddleware");
+const vu53Controller = require("../../controllers/gildirakSexi/vu53Controller");
+const validations = require("../../validators/universalValidator");
 
 router.get('/all', authMiddleware, vu53Controller.getAll)
 router.get('/one/:id/:status', authMiddleware, vu53Controller.getOne)

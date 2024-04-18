@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middlewares/authMiddleware");
-const naplavkaController = require("../controllers/naplavkaController");
-const validations = require("../validators/universalValidator");
+const authMiddleware = require("../../middlewares/authMiddleware");
+const naplavkaController = require("../../controllers/gildirakSexi/naplavkaController");
+const validations = require("../../validators/universalValidator");
 
 router.get('/all', authMiddleware, naplavkaController.getAll)
 router.get('/one/:id/:status', authMiddleware, naplavkaController.getOne)

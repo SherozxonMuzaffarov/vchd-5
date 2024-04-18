@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const NaplavkaUTYModel = require('../../models/naplavkaUTY');
-const NaplavkaSOBModel = require('../../models/naplavkaSOB');
-const NaplavkaKZXModel = require('../../models/naplavkaKZX');
+const NaplavkaUTYModel = require('../../../models/gildirakSexi/naplavkaUTY');
+const NaplavkaSOBModel = require('../../../models/gildirakSexi/naplavkaSOB');
+const NaplavkaKZXModel = require('../../../models/gildirakSexi/naplavkaKZX');
 
 module.exports = {
     create: async (req, res) => {
@@ -21,7 +21,7 @@ module.exports = {
                     depo: 'ВЧД-6',
                 });
                 res.json(model);
-            } else if (vu53_status == 'КЗХ') {
+            } else if (vu53_status == 'СНГ') {
                 let model = await NaplavkaKZXModel.create({
                     ...req.body,
                     depo: 'ВЧД-6'
@@ -59,7 +59,7 @@ module.exports = {
                     .populate('defektoskopist_name', 'name')
                     .populate('receptionist_name', 'name')
                     .sort({ createdAt: -1 });
-            } else if (vu53_status == 'КЗХ') {
+            } else if (vu53_status == 'СНГ') {
                 model = await NaplavkaKZXModel
                     .find({vu53_status})
                     .populate('vu53_register_number', 'register_number')
@@ -89,7 +89,7 @@ module.exports = {
                 model = await NaplavkaUTYModel.findById(id);
             } else if (status == 'СОБ') {
                 model = await NaplavkaSOBModel.findById(id);
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 model = await NaplavkaKZXModel.findById(id);
             }
 
@@ -121,7 +121,7 @@ module.exports = {
                     req.body,
                     { new: true }
                 );
-            } else if (vu53_status == 'КЗХ') {
+            } else if (vu53_status == 'СНГ') {
                 updatedModel = await NaplavkaKZXModel.findByIdAndUpdate(
                     id,
                     req.body,

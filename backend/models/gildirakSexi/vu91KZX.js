@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const vu93KZXSchema = new mongoose.Schema({
+const vu91KZXSchema = new mongoose.Schema({
     register_number: {
         type: Number,
         required: true,
@@ -10,52 +10,40 @@ const vu93KZXSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        required: true,
+    },
     depoManifactured: {
         type: String,
+        required: true,
+    },
+    nomer: {
+        type: Number,
         required: true,
     },
     defect: {
         type: String,
         required: true,
     },
-    repairDone: {
-        type: String,
-        required: true,
-    },
-    repairman: {
+    inspector: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',
         required: true
     },
-    is_repairman_sign: {
+    is_inspector_sign: {
         type: Boolean,
         default: false
     },
-    repairman_sign_data :{
+    inspector_sign_data :{
         type: String
     },
-    repairman_sign_type :{
-        type: String
-    },
-
-    master: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employee',
-        required: true
-    },
-    is_master_sign: {
-        type: Boolean,
-        default: false
-    },
-    master_sign_data :{
-        type: String
-    },
-    master_sign_type :{
+    inspector_sign_type :{
         type: String
     },
     status: {
         type: String,
-        enum: ['КЗХ'],
+        enum: ['СНГ'],
         required: true
     },
     depo: {
@@ -67,6 +55,6 @@ const vu93KZXSchema = new mongoose.Schema({
     timestamps:true
 });
 
-const Vu93KZXModel = mongoose.model('Vu93KZX', vu93KZXSchema);
+const Vu91KZXModel = mongoose.model('Vu91KZX', vu91KZXSchema);
 
-module.exports = Vu93KZXModel;
+module.exports = Vu91KZXModel;

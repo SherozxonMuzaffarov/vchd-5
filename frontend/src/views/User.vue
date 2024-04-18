@@ -81,6 +81,7 @@
   const roles = ref([
     { value: "admin", text: "admin" },
     { value: "g'ildirakSexi", text: "g'ildirakSexi" },
+    { value: "telejkaSexi", text: "telejkaSexi" },
   ]);
   
   // create

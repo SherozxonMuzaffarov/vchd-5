@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Vu91UTYModel = require('../../models/vu91UTY');
-const Vu91SOBModel = require('../../models/vu91SOB');
-const Vu91KZXModel = require('../../models/vu91KZX');
+const Vu91UTYModel = require('../../../models/gildirakSexi/vu91UTY');
+const Vu91SOBModel = require('../../../models/gildirakSexi/vu91SOB');
+const Vu91KZXModel = require('../../../models/gildirakSexi/vu91KZX');
 
 module.exports = {
     create: async (req, res) => {
@@ -21,7 +21,7 @@ module.exports = {
                     depo: 'ВЧД-6',
                 });
                 res.json(model);
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 let model = await Vu91KZXModel.create({
                     ...req.body,
                     depo: 'ВЧД-6'
@@ -49,7 +49,7 @@ module.exports = {
                     .find({status})
                     .populate('inspector', 'name')
                     .sort({ createdAt: -1 });
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 model = await Vu91KZXModel
                     .find({status})
                     .populate('inspector', 'name')
@@ -74,7 +74,7 @@ module.exports = {
                 model = await Vu91UTYModel.findById(id)
             } else if (status == 'СОБ') {
                 model = await Vu91SOBModel.findById(id);
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 model = await Vu91KZXModel.findById(id);
             }
 
@@ -107,7 +107,7 @@ module.exports = {
                     req.body,
                     { new: true }
                 );
-            } else if (status == 'КЗХ') {
+            } else if (status == 'СНГ') {
                 updatedModel = await Vu91KZXModel.findByIdAndUpdate(
                     id,
                     req.body,
