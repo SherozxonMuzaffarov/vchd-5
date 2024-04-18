@@ -157,7 +157,7 @@ const vu53Types = [
 
 const groupedOptions = [
   {text: 'ЎТЙ', value: 'ЎТЙ'},
-  {text: 'КЗХ', value: 'КЗХ'},
+  {text: 'СНГ', value: 'СНГ'},
   {text: 'СОБ', value: 'СОБ'},
 ]
 

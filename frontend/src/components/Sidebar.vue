@@ -88,10 +88,10 @@
 						<span class="material-icons">star</span>
 						<span class="text">Наплавка</span>
 					</router-link>
-					<router-link to="/gildirak-sexi/employee" class="button sub-button">
+					<!-- <router-link to="/gildirak-sexi/employee" class="button sub-button">
 						<span class="material-icons">badge</span>
 						<span class="text">Ишчилар</span>
-					</router-link>
+					</router-link> -->
 				</div>
 				<!-- /Ғилдирак сехи -->
 
@@ -119,10 +119,10 @@
 						<span class="text m-2">Триангеллар</span>
 					</router-link>
 					
-					<router-link to="/telejka-sexi/employee" class="button sub-button">
+					<!-- <router-link to="/telejka-sexi/employee" class="button sub-button">
 						<span class="material-icons">badge</span>
 						<span class="text">Ишчилар</span>
-					</router-link>
+					</router-link> -->
 				</div>
 				<!-- /Telejka сехи-Dropdown -->
 

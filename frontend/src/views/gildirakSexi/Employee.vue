@@ -66,9 +66,12 @@
               <td>{{ item.level }}</td>
               <td>{{ item.group }}</td>
               <td class="btns">
-                <button class="btn btn-danger m-0">
+                <button class="btn btn-danger m-0" @click="deleteItem(item._id)">
                   <span class="material-icons">delete</span>
                 </button>
+                <!-- <button class="btn btn-success m-0" @click="getOne(item._id)">
+                  <span class="material-icons">update</span>
+                </button> -->
               </td>
             </tr>
           </tbody>
@@ -167,6 +170,19 @@ const closeModal = () => {
       console.error(error);
     }
   };
+
+  // // delete
+  // const getOne = async (id) => {
+  //   try {
+  //     if (!id) return;
+  //       let res = await axios.delete("/api/employee/one/" + id);
+  //       if (res.data) {
+  //         formData.value = res.data
+  //       }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   
   // getAll
   let getAll = async () => {

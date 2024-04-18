@@ -250,7 +250,7 @@
                     <BFormInput class="mt-1" v-model="formData.internal_preload_kolsa_left_2" id="design_left_front" />
                 </div>
 
-        
+        <!--    NT-1/227-24    -->
 
                 
             </div>
@@ -289,7 +289,6 @@
         </div>
 
 
-        {{ vu53s }}
          <!-- List -->
         <div class="mt-5">
             <div class="card shadow-sm" style="overflow: auto; white-space: nowrap">
@@ -424,7 +423,7 @@ const formData = ref({
 
 const groupedOptions = [
   {text: 'ЎТЙ', value: 'ЎТЙ'},
-  {text: 'КЗХ', value: 'КЗХ'},
+  {text: 'СНГ', value: 'СНГ'},
   {text: 'СОБ', value: 'СОБ'},
 ]
 
