@@ -11,8 +11,6 @@
 				</button>
 			</div>
 
-			currentUser: {{ currentUser.role }}
-
 			<h3>Menu</h3>
 			<div class="menu">
 				<router-link to="/" class="button">

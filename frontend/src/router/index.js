@@ -41,11 +41,13 @@ const router = createRouter({
           children: [
             {
               path: 'vu-51',
-              component: () => import('../views/gildirakSexi/VU-51.vue')
+              component: () => import('../views/gildirakSexi/vu53m.vue')
+              // component: () => import('../views/gildirakSexi/VU-51.vue')
             },
             {
               path: 'vu-53',
-              component: () => import('../views/gildirakSexi/VU-53.vue')
+              component: () => import('../views/gildirakSexi/vu53m.vue')
+              // component: () => import('../views/gildirakSexi/VU-53.vue')
             },
             {
               path: 'vu-53-expense/:id/:status',

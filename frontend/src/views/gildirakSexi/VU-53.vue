@@ -3,7 +3,87 @@
         <h3>Журнал</h3>
         <h4> оборота и ремонта колёсных пар</h4>
 
-        {{ Data }}
+        <!-- Modal -->
+            <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    
+                    <BTableSimple striped="true" hover="true" bordered="true" class="mt-4">
+                    <BThead >
+                        <BTr >
+                            <BTd colspan="11" >Прихот</BTd>
+                        </BTr>
+                        <BTr >
+                            <BTd rowspan="3" class="vertical-text " >№ По порядку</BTd>
+                            <BTd rowspan="3" class="vertical-text" >Дата поступления</BTd>
+                            <BTd rowspan="3" >
+                                Наименования <br/> завода или пункта, <br/>
+                                откуда ноступиса <br/> колесная пара, <br/> или номер вагона, <br/>
+                                из-под которого она <br/> выкачена 
+                            </BTd>
+                            <BTd colspan="8">Характеристика колосной пары</BTd>
+                        </BTr>
+                        <BTr >
+                            <BTd rowspan="2" class="vertical-text">Тип колосной пары</BTd>
+                            <BTd rowspan="2">Номер <br/> колосной  пары</BTd>
+                            <BTd rowspan="2" class="vertical-text">Дефект</BTd>
+                            <BTd colspan="3">Дата и пункт</BTd>
+                            <BTd colspan="2" rowspan="3" class="vertical-text">
+                                Диаметр по кругу <br/> катания колеса <br/>
+                                ( числитель-правос, <br/> знаменатель-левос)
+                            </BTd>
+                        </BTr>
+                        <BTr class="align-middle">
+                            <BTd class="vertical-text">Изготовления оси</BTd>
+                            <BTd class="vertical-text">Последного <br/> формирования</BTd>
+                            <BTd class="vertical-text">
+                                Последнего полного <br/> освидетельствование <br/> колесной пары и <br/>
+                                монтажа букс для <br/> роликовых  колесных пар
+                            </BTd>
+                        </BTr>
+                    </BThead>
+                    <BTbody>
+                        {{changedItem?.updates?.updateDetails}}
+                        <BTr class="align-middle" v-for="item in changedItem" :key="item._id">
+                            <BTd>{{ updatedItem(item).register_number }}</BTd>
+                            <BTd>{{ updatedItem(item).register_time }}</BTd>
+                            <BTd>{{ updatedItem(item).vagon?.nomer }}</BTd>
+                            <BTd>{{ updatedItem(item).type }}</BTd>
+                            <BTd>{{ updatedItem(item).number }}</BTd>
+                            <BTd>{{ updatedItem(item).defective }}</BTd>
+                            <BTd>{{ updatedItem(item).os_year }}</BTd>
+                            <BTd>{{ updatedItem(item).last_repair }}</BTd>
+                            <BTd>{{ updatedItem(item).buksa }}</BTd>
+                            <BTd>{{ updatedItem(item).diameter?.right }}</BTd>
+                            <BTd>{{ updatedItem(item).diameter?.left }}</BTd>
+                        </BTr>
+                        <BTr class="align-middle" v-for="item in changedItem?.updates?.updateDetails" :key="item._id">
+                            
+                            <BTd>{{ item.register_number }}</BTd>
+                            <BTd>{{ item.register_time }}</BTd>
+                            <BTd>{{ item.vagon?.nomer }}</BTd>
+                            <BTd>{{ item.type }}</BTd>
+                            <BTd>{{ item.number }}</BTd>
+                            <BTd>{{ item.defective }}</BTd>
+                            <BTd>{{ item.os_year }}</BTd>
+                            <BTd>{{ item.last_repair }}</BTd>
+                            <BTd>{{ item.buksa }}</BTd>
+                            <BTd>{{ item.diameter?.right }}</BTd>
+                            <BTd>{{ item.diameter?.left }}</BTd>
+                        </BTr>
+
+                    </BTbody>
+                </BTableSimple>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
         <!-- Filter -->
         <div class="row mt-5">
         <div class="col-12">
@@ -110,6 +190,10 @@
                             <BTd>{{ updatedItem(item).diameter?.right }}</BTd>
                             <BTd>{{ updatedItem(item).diameter?.left }}</BTd>
                             <BTd class="d-flex justify-content-center">
+                                <button type="button" @click="changedData(item._id, item.status)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="item.updates.length">
+                                    <i class="bi bi-bookmark-check"></i>
+                                </button>
+
                                 <button class="btn btn-primary" @click="getOne(item._id, item.status)">
                                     <i class="bi bi-pen-fill"></i>
                                 </button>
@@ -135,6 +219,7 @@ import axios from 'axios';
 
 const addToggle = ref(false)
 const Data = ref([])
+const changedItem = ref([])
 const vagons = ref([])
 const vu53Types = [
   {text: 'РУ1', value: 'РУ1'},
@@ -248,6 +333,14 @@ const getOne = async(id, status) => {
             addData()
             formData.value = res.data;
         }
+    } catch (error) {
+        console.error(error);
+    }
+}
+const changedData = async(id, status) => {
+    try {
+        changedItem.value = Data.value.filter((item) => item._id == id) 
+        console.log("changedItem.value: " + changedItem.value);
     } catch (error) {
         console.error(error);
     }

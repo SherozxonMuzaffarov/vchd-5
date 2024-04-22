@@ -3,7 +3,6 @@
         <h3>Журнал</h3>
         <h4> оборота и ремонта колёсных пар</h4>
 
-        {{ Data }}
         <!-- Filter -->
         <div class="row mt-5">
         <div class="col-12">
